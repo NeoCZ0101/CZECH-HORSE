@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+dist
+.env*
+!.env.example
+.codex-dev.*.log
+.codex-dev-*.log
+.codex-dev.out.log
+.codex-dev.err.log
+.codex-next-dev*.log
+.codex-screenshots
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
