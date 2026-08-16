@@ -1,4 +1,4 @@
-export type NutritionCategory = "Základ" | "Bílkoviny" | "Vláknina" | "Tuky";
+export type NutritionCategory = "Bílkoviny" | "Vláknina" | "Tuky" | "Sacharidy" | "Maso a ryby";
 
 export type NutritionFood = {
   id: string;
@@ -15,11 +15,21 @@ export type NutritionFood = {
   tags: string[];
 };
 
+export type NutritionRecipe = {
+  id: string;
+  name: string;
+  description: string;
+  time: string;
+  tag: string;
+  image: string;
+  items: string[];
+};
+
 export const nutritionFoods: NutritionFood[] = [
   {
     id: "ovesne-vlocky",
     name: "Ovesné vločky",
-    category: "Základ",
+    category: "Sacharidy",
     image: "/food-oats.png",
     summary: "Praktický základ snídaně, který se dá upravit podle cíle, času i rozpočtu.",
     benefits: ["vláknina a beta-glukany", "stabilnější energie", "snadné spojení s ovocem nebo jogurtem"],
@@ -61,7 +71,7 @@ export const nutritionFoods: NutritionFood[] = [
   {
     id: "losos",
     name: "Losos",
-    category: "Tuky",
+    category: "Maso a ryby",
     image: "/food-salmon.png",
     summary: "Výrazná potravina pro jídla, kde chceš spojit bílkoviny, chuť a kvalitní tuky.",
     benefits: ["bílkoviny a omega-3 mastné kyseliny", "vitamin D a B12", "snadná příprava v troubě nebo na pánvi"],
@@ -71,6 +81,50 @@ export const nutritionFoods: NutritionFood[] = [
     portions: "120–180 g porce",
     price: "vyšší",
     tags: ["bílkoviny", "omega-3", "hlavní jídlo"],
+  },
+  {
+    id: "avokado",
+    name: "Avokádo",
+    category: "Tuky",
+    image: "/food-avocado.png",
+    summary: "Krémová součást talíře, která přidá nenasycené tuky, chuť a sytost.",
+    benefits: ["nenasycené mastné kyseliny", "zdroj vlákniny a draslíku", "snadné použití do salátu nebo pomazánky"],
+    cautions: ["vyšší energetická hustota", "hlídat velikost porce podle cíle", "u citlivosti na latex může být relevantní zkřížená reakce"],
+    origin: "Pěstuje se hlavně v Mexiku, Peru, Kolumbii, Keni a dalších teplých oblastech.",
+    season: "Dostupné většinu roku; zralost se liší podle původu a dopravy.",
+    portions: "1/2 avokáda",
+    price: "střední",
+    tags: ["tuky", "vláknina", "bez vaření"],
+  },
+];
+
+export const nutritionRecipes: NutritionRecipe[] = [
+  {
+    id: "ovesna-miska",
+    name: "Ovesná miska s ovocem",
+    description: "Rychlá snídaně, která spojí sacharidy, vlákninu a trochu bílkovin.",
+    time: "10 min",
+    tag: "snídaně",
+    image: "/food-oats.png",
+    items: ["Ovesné vločky", "Vejce"],
+  },
+  {
+    id: "cockova-miska",
+    name: "Čočková miska se zeleninou",
+    description: "Syté rostlinné jídlo do běžného týdne, které drží rozpočet i energii.",
+    time: "30 min",
+    tag: "rozpočet",
+    image: "/food-lentils.png",
+    items: ["Čočka", "Ovesné vločky"],
+  },
+  {
+    id: "lososovy-talir",
+    name: "Lososový talíř",
+    description: "Jednoduché hlavní jídlo s rybou, přílohou a zeleninou.",
+    time: "25 min",
+    tag: "hlavní jídlo",
+    image: "/food-salmon.png",
+    items: ["Losos", "Čočka"],
   },
 ];
 
