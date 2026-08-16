@@ -30,8 +30,6 @@ export function Header() {
   const pathname = usePathname();
   const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
   const navItems = isEnglish ? englishNavItems : czechNavItems;
-  const actionHref = isEnglish ? "#start-here" : "/co-resim";
-  const actionLabel = isEnglish ? "Start here" : "Začít situací";
   const languageHref = pathname === "/stravovani"
     ? "/en/stravovani"
     : pathname === "/en/stravovani"
@@ -76,14 +74,6 @@ export function Header() {
             <Globe2 aria-hidden size={15} />
             {languageLabel}
           </Link>
-          <div className="hidden md:block">
-            <Link
-              href={actionHref}
-              className="rounded-[6px] bg-forest px-4 py-2 text-sm font-semibold text-cream transition hover:-translate-y-0.5 hover:bg-forest-deep"
-            >
-              {actionLabel}
-            </Link>
-          </div>
           <MobileNavigation items={navItems} />
         </div>
       </div>
