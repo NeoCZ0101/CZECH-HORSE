@@ -8,7 +8,6 @@ const czechColumns = [
   {
     title: "Platforma",
     links: [
-      { href: "/co-resim", label: "Co právě řeším" },
       { href: "/stravovani", label: "Stravování" },
       { href: "/o-platforme", label: "O platformě" },
     ],

@@ -106,7 +106,7 @@ export default async function SituationDetailPage({ params }: PageProps) {
     <main className="bg-cream">
       <section className="bg-surface">
         <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-          <Breadcrumbs items={[{ href: "/", label: "Domů" }, { href: "/co-resim", label: "Co řeším" }, { label: situation.title }]} />
+          <Breadcrumbs items={[{ href: "/", label: "Domů" }, { label: situation.title }]} />
           <div className="mt-10 grid gap-10 lg:grid-cols-[0.95fr_0.55fr]">
             <div>
               <p className="text-sm font-semibold text-terracotta">Detail životní situace</p>

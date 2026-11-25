@@ -32,7 +32,7 @@ export function HeroSection() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/co-resim"
+              href="#mapa-cloveka"
               className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-[6px] bg-forest px-5 py-3 text-sm font-semibold text-cream shadow-[0_8px_18px_rgba(23,63,53,0.16)] transition hover:-translate-y-0.5 hover:bg-forest-deep sm:w-auto sm:px-6"
             >
               Vybrat, co právě řeším

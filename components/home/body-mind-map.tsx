@@ -137,8 +137,8 @@ function MobileAreaList({ title, description, areas, isMind }: { title: string; 
               <p className="text-sm leading-6 text-muted">{area.description}</p>
               <p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted">Témata</p>
               <p className="mt-1 text-sm leading-6 text-ink">{area.topics.join(" · ")}</p>
-              <Link href={area.id === "stravovani" ? "/stravovani" : "/co-resim"} className={`mt-4 inline-flex items-center gap-2 text-sm font-semibold ${tone}`}>
-                {area.id === "stravovani" ? "Otevřít plánovač stravování" : "Popsat situaci"}
+              <Link href={area.id === "stravovani" ? "/stravovani" : "#mapa-cloveka"} className={`mt-4 inline-flex items-center gap-2 text-sm font-semibold ${tone}`}>
+                {area.id === "stravovani" ? "Otevřít plánovač stravování" : "Zůstat v mapě"}
                 <ArrowRight aria-hidden size={16} />
               </Link>
             </div>
