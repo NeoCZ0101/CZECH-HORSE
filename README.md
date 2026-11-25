@@ -13,7 +13,6 @@ Sekundární organizace pracuje s oblastmi: směr, psychika, komunikace, práce,
 - `/` domovská stránka
 - `/co-resim` přehled životních situací s filtrováním
 - `/situace/ziju-podle-ocekavani-ostatnich` ukázkový detail životní situace
-- `/cesty` životní cesty
 - `/odbornici` katalog odborníků a služeb
 - `/komunita` moderované skupiny a události
 - `/pro-odborniky` B2B stránka s formulářem pro partnerství

@@ -10,7 +10,6 @@ const czechColumns = [
     links: [
       { href: "/co-resim", label: "Co právě řeším" },
       { href: "/stravovani", label: "Stravování" },
-      { href: "/cesty", label: "Životní cesty" },
       { href: "/o-platforme", label: "O platformě" },
     ],
   },

@@ -10,7 +10,6 @@ import { MobileNavigation } from "@/components/mobile-navigation";
 const czechNavItems = [
   { href: "/co-resim", label: "Co řeším" },
   { href: "/stravovani", label: "Stravování" },
-  { href: "/cesty", label: "Životní cesty" },
   { href: "/odbornici", label: "Odborníci" },
   { href: "/pro-odborniky", label: "Pro odborníky" },
   { href: "/o-platforme", label: "O platformě" },
