@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { RawMeatGallery } from "./raw-meat-gallery";
 import Link from "next/link";
 import { ArrowLeft, CircleAlert, Globe2, Utensils } from "lucide-react";
 
@@ -7,7 +7,6 @@ type GuideLanguage = "cs" | "en";
 const guideContent = {
   cs: {
     back: "Zpět na stravování",
-    eyebrow: "KATALOG · MASO A RYBY",
     title: "Maso a ryby mají svůj příběh.",
     intro: "Nejde jen o to, co má kolik bílkovin. Důležitý je také původ, cena, dostupnost, způsob chovu, kulturní kontext a to, jakou roli může daná potravina hrát na talíři.",
     noteTitle: "Jak s přehledem pracovat",
@@ -23,7 +22,6 @@ const guideContent = {
   },
   en: {
     back: "Back to food and nutrition",
-    eyebrow: "CATALOGUE · MEAT AND FISH",
     title: "Meat and fish have a story.",
     intro: "It is not only about protein. Origin, price, availability, farming, cultural context and the role a food plays on your plate all matter too.",
     noteTitle: "How to use this overview",
@@ -49,8 +47,11 @@ export function MeatAndFishGuide({ language }: { language: GuideLanguage }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link href={homeHref} className="inline-flex items-center gap-2 text-sm font-semibold text-muted transition hover:text-forest"><ArrowLeft aria-hidden size={17} />{content.back}</Link>
           <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.62fr)] lg:items-end">
-            <div><p className="text-xs font-semibold uppercase tracking-[0.16em] text-olive">{content.eyebrow}</p><h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-[1.04] text-forest-deep sm:text-6xl">{content.title}</h1><p className="mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg">{content.intro}</p></div>
-            <div className="relative aspect-[1.2] overflow-hidden border border-sand bg-mist"><Image src="/food-salmon.png" alt={language === "en" ? "A finished plate of salmon with potatoes and greens" : "Hotový talíř s lososem, bramborami a zeleninou"} fill sizes="(min-width: 1024px) 35vw, 100vw" className="object-cover" /></div>
+            <div>
+              <h1 className="max-w-3xl font-display text-4xl font-semibold leading-[1.04] text-forest-deep sm:text-6xl">{content.title}</h1>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg">{content.intro}</p>
+            </div>
+            <RawMeatGallery language={language} />
           </div>
         </div>
       </section>
