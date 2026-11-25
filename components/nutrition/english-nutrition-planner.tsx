@@ -9,7 +9,6 @@ import {
   CircleAlert,
   Globe2,
   Plus,
-  ShoppingBag,
   Sparkles,
   Utensils,
   X,
@@ -174,7 +173,7 @@ export function EnglishNutritionPlanner() {
   const [plan, setPlan] = useState<PlanItem[]>([
     { foodId: "oats", meal: "Breakfast" },
   ]);
-  const [path, setPath] = useState<"self" | "inspiration" | "partner">("self");
+  const [path, setPath] = useState<"self" | "inspiration">("self");
   const [notice, setNotice] = useState(
     "Add food you want to try during the day.",
   );
@@ -233,32 +232,18 @@ export function EnglishNutritionPlanner() {
               <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish-raw.png" alt="Raw meat and fish on a white background" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" /></div>
               <div className="p-5"><h2 className="text-lg font-semibold">Meat and fish</h2><p className={`mt-2 text-sm leading-6 ${path === "inspiration" ? "text-cream/75" : "text-muted"}`}>Poultry, pork, beef, lamb and fish.</p></div>
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                setPath("partner");
-                setNotice(
-                  "Partner meal plans are being prepared. Each will show its author, method, price and scope.",
-                );
-              }}
-              className={`border p-5 text-left transition ${path === "partner" ? "border-terracotta bg-terracotta text-cream" : "border-sand bg-surface hover:border-terracotta/50"}`}
+            <Link
+              href="/en/stravovani/side-dishes"
+              className="overflow-hidden border border-sand bg-surface text-left transition hover:border-petrol focus-visible:outline-petrol"
             >
-              <ShoppingBag
-                className={
-                  path === "partner" ? "text-cream" : "text-terracotta"
-                }
-                aria-hidden
-                size={21}
-              />
-              <h2 className="mt-4 text-lg font-semibold">
-                Choose a partner plan
-              </h2>
-              <p
-                className={`mt-2 text-sm leading-6 ${path === "partner" ? "text-cream/75" : "text-muted"}`}
-              >
-                Curated plans from people who stand behind their approach.
-              </p>
-            </button>
+              <div className="relative aspect-[2.4] bg-white">
+                <Image src="/side-dishes.webp" alt="" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" />
+              </div>
+              <div className="p-5">
+                <h2 className="text-lg font-semibold">Side dishes</h2>
+                <p className="mt-2 text-sm leading-6 text-muted">Potatoes, rice, pasta, grains, pulses and dumplings.</p>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -432,53 +417,39 @@ export function EnglishNutritionPlanner() {
                 ))}
               </div>
             </div>
-            {path === "partner" && (
-              <div className="mt-8 border-l-4 border-terracotta bg-cream px-5 py-5">
-                <p className="text-sm font-semibold text-terracotta">
-                  PARTNER OFFERS COMING
-                </p>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-                  Each offer will make the author, audience, price, support and
-                  boundaries clear. A general meal plan will not be presented as
-                  medical care.
-                </p>
-              </div>
-            )}
-            {path !== "partner" && (
-              <div className="mt-8 border border-sand bg-mist px-5 py-5">
-                <div className="flex gap-3">
-                  <Bot
-                    className="mt-0.5 shrink-0 text-petrol"
-                    aria-hidden
-                    size={21}
-                  />
-                  <div>
-                    <p className="text-sm font-semibold text-ink">
-                      AI as a first draft
-                    </p>
-                    <p className="mt-1 text-sm leading-6 text-muted">
-                      Later, you can enter your goal, budget, time, preferences
-                      and restrictions. AI can suggest a version you review and
-                      change.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        apply(
-                          ["oats", "eggs", "lentils"],
-                          "An AI draft is ready locally as a demonstration of the future feature.",
-                        )
-                      }
-                      className="mt-4 inline-flex min-h-10 items-center gap-2 bg-petrol px-3.5 py-2.5 text-sm font-semibold text-cream transition hover:bg-forest"
-                    >
-                      <Bot aria-hidden size={16} />
-                      Generate AI draft
-                      <ArrowRight aria-hidden size={16} />
-                    </button>
-                  </div>
+            <div className="mt-8 border border-sand bg-mist px-5 py-5">
+              <div className="flex gap-3">
+                <Bot
+                  className="mt-0.5 shrink-0 text-petrol"
+                  aria-hidden
+                  size={21}
+                />
+                <div>
+                  <p className="text-sm font-semibold text-ink">
+                    AI as a first draft
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-muted">
+                    Later, you can enter your goal, budget, time, preferences
+                    and restrictions. AI can suggest a version you review and
+                    change.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      apply(
+                        ["oats", "eggs", "lentils"],
+                        "An AI draft is ready locally as a demonstration of the future feature.",
+                      )
+                    }
+                    className="mt-4 inline-flex min-h-10 items-center gap-2 bg-petrol px-3.5 py-2.5 text-sm font-semibold text-cream transition hover:bg-forest"
+                  >
+                    <Bot aria-hidden size={16} />
+                    Generate AI draft
+                    <ArrowRight aria-hidden size={16} />
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
           </div>
           <aside className="h-fit border border-forest bg-forest-deep text-cream lg:sticky lg:top-28">
             <div className="border-b border-cream/15 px-5 py-5">

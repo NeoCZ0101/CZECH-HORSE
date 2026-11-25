@@ -15,7 +15,6 @@ import {
   Heart,
   Mail,
   Plus,
-  ShoppingBag,
   Sparkles,
   Trash2,
   Utensils,
@@ -259,7 +258,7 @@ export function NutritionPlanner() {
     { foodId: nutritionFoods[0].id, meal: "Snídaně" },
   ]);
   const [activePath, setActivePath] = useState<
-    "self" | "inspiration" | "partner"
+    "self" | "inspiration"
   >("self");
   const [notice, setNotice] = useState(
     "Přidej potraviny, které chceš během dne vyzkoušet.",
@@ -343,32 +342,18 @@ export function NutritionPlanner() {
               <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish-raw.png" alt="Syrové maso a ryby na bílém pozadí" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" /></div>
               <div className="p-5"><h2 className="text-lg font-semibold">Maso a ryby</h2><p className={`mt-2 text-sm leading-6 ${activePath === "inspiration" ? "text-cream/75" : "text-muted"}`}>Drůbež, vepřové, hovězí, jehněčí i ryby.</p></div>
             </Link>
-            <button
-              type="button"
-              onClick={() => {
-                setActivePath("partner");
-                setNotice(
-                  "Partnerské jídelníčky připravujeme. Tady bude možné porovnat autora, přístup, cenu a rozsah podpory.",
-                );
-              }}
-              className={`border p-5 text-left transition ${activePath === "partner" ? "border-terracotta bg-terracotta text-cream" : "border-sand bg-surface hover:border-terracotta/50"}`}
+            <Link
+              href="/stravovani/prilohy"
+              className="overflow-hidden border border-sand bg-surface text-left transition hover:border-petrol focus-visible:outline-petrol"
             >
-              <ShoppingBag
-                className={
-                  activePath === "partner" ? "text-cream" : "text-terracotta"
-                }
-                aria-hidden
-                size={21}
-              />
-              <h2 className="mt-4 text-lg font-semibold">
-                Jídelníček od partnera
-              </h2>
-              <p
-                className={`mt-2 text-sm leading-6 ${activePath === "partner" ? "text-cream/75" : "text-muted"}`}
-              >
-                Kurátorované nabídky od lidí, kteří za svou metodou stojí.
-              </p>
-            </button>
+              <div className="relative aspect-[2.4] bg-white">
+                <Image src="/side-dishes.webp" alt="" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" />
+              </div>
+              <div className="p-5">
+                <h2 className="text-lg font-semibold">Přílohy</h2>
+                <p className="mt-2 text-sm leading-6 text-muted">Brambory, rýže, těstoviny, obiloviny, luštěniny a knedlíky.</p>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -480,53 +465,39 @@ export function NutritionPlanner() {
                 ))}
               </div>
             </div>
-            {activePath === "partner" && (
-              <div className="mt-8 border-l-4 border-terracotta bg-cream px-5 py-5 sm:px-6">
-                <p className="text-sm font-semibold text-terracotta">
-                  PARTNERSKÁ NABÍDKA PŘIPRAVUJEME
-                </p>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-                  Až budou nabídky připravené, u každé bude jasné, kdo ji
-                  vytvořil, pro koho je, co obsahuje a co stojí. Bez skrytých
-                  slibů a bez vydávání obecného jídelníčku za zdravotní péči.
-                </p>
-              </div>
-            )}
-            {activePath !== "partner" && (
-              <div className="mt-8 border border-sand bg-mist px-5 py-5 sm:px-6">
-                <div className="flex gap-3">
-                  <Bot
-                    className="mt-0.5 shrink-0 text-petrol"
-                    aria-hidden
-                    size={21}
-                  />
-                  <div>
-                    <p className="text-sm font-semibold text-ink">
-                      AI návrh jako první koncept
-                    </p>
-                    <p className="mt-1 text-sm leading-6 text-muted">
-                      V další verzi zadáš cíl, rozpočet, čas, preference a
-                      omezení. AI navrhne variantu, kterou si projdeš a upravíš.
-                      Nenahrazuje odborné posouzení.
-                    </p>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        applyPlan(
-                          ["Ovesné vločky", "Vejce", "Čočka"],
-                          "AI koncept je připravený lokálně jako ukázka budoucí funkce.",
-                        )
-                      }
-                      className="mt-4 inline-flex min-h-10 items-center gap-2 bg-petrol px-3.5 py-2.5 text-sm font-semibold text-cream transition hover:bg-forest"
-                    >
-                      <Bot aria-hidden size={16} />
-                      Vygenerovat AI koncept
-                      <ArrowRight aria-hidden size={16} />
-                    </button>
-                  </div>
+            <div className="mt-8 border border-sand bg-mist px-5 py-5 sm:px-6">
+              <div className="flex gap-3">
+                <Bot
+                  className="mt-0.5 shrink-0 text-petrol"
+                  aria-hidden
+                  size={21}
+                />
+                <div>
+                  <p className="text-sm font-semibold text-ink">
+                    AI návrh jako první koncept
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-muted">
+                    V další verzi zadáš cíl, rozpočet, čas, preference a
+                    omezení. AI navrhne variantu, kterou si projdeš a upravíš.
+                    Nenahrazuje odborné posouzení.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      applyPlan(
+                        ["Ovesné vločky", "Vejce", "Čočka"],
+                        "AI koncept je připravený lokálně jako ukázka budoucí funkce.",
+                      )
+                    }
+                    className="mt-4 inline-flex min-h-10 items-center gap-2 bg-petrol px-3.5 py-2.5 text-sm font-semibold text-cream transition hover:bg-forest"
+                  >
+                    <Bot aria-hidden size={16} />
+                    Vygenerovat AI koncept
+                    <ArrowRight aria-hidden size={16} />
+                  </button>
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           <aside className="hidden">

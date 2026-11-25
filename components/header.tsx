@@ -28,14 +28,13 @@ export function Header() {
   const pathname = usePathname();
   const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
   const navItems = isEnglish ? englishNavItems : czechNavItems;
-  const languageHref =
-    pathname === "/stravovani"
-      ? "/en/stravovani"
-      : pathname === "/en/stravovani"
-        ? "/stravovani"
-        : isEnglish
-          ? "/"
-          : "/en";
+  const translations: Record<string, string> = {
+    "/stravovani": "/en/stravovani",
+    "/en/stravovani": "/stravovani",
+    "/stravovani/prilohy": "/en/stravovani/side-dishes",
+    "/en/stravovani/side-dishes": "/stravovani/prilohy",
+  };
+  const languageHref = translations[pathname] ?? (isEnglish ? "/" : "/en");
   const languageLabel = isEnglish ? "CZ" : "EN";
 
   useEffect(() => {
