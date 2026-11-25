@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDownRight, ArrowRight, Brain, Scissors, Sparkles, WalletCards } from "lucide-react";
+import { ArrowRight, Brain, Scissors, Sparkles, WalletCards } from "lucide-react";
 import { FinanceCalculator } from "@/components/home/finance-calculator";
 
 export function HomeHero() {
@@ -109,10 +109,6 @@ export function HomeHero() {
           </section>
         </div>
 
-        <Link href="#mapa-cloveka" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta sm:mt-7">
-          Zobrazit celou mapu
-          <ArrowDownRight aria-hidden size={18} />
-        </Link>
       </div>
     </section>
   );

@@ -193,7 +193,6 @@ export function BodyMindMap() {
         <ScrollReveal>
           <div className="flex flex-col gap-6 border-b border-sand pb-10 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading
-              eyebrow="Hlavní mapa člověka"
               title="Začni u oblasti, ve které se poznáváš."
               description="Tělo, psychika a finance se propisují do toho, jak člověk funguje v každém dni. Každá oblast ukazuje, kde můžeš začít a co s ní může souviset."
             />
