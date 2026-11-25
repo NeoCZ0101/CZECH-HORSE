@@ -392,7 +392,7 @@ export function NutritionPlanner() {
       </section>
 
       <section id="katalog" className="py-16 sm:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-1 lg:px-8">
           <div>
             <div className="flex flex-col gap-5 border-b border-sand pb-6 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -547,7 +547,7 @@ export function NutritionPlanner() {
             )}
           </div>
 
-          <aside id="muj-den" className="h-fit border border-forest bg-forest-deep text-cream lg:sticky lg:top-28">
+          <aside className="hidden">
             <div className="border-b border-cream/15 px-5 py-5">
               <div className="flex items-center justify-between gap-3">
                 <div>
