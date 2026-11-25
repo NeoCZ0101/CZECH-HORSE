@@ -139,7 +139,7 @@ function MobileAreaList({ title, description, areas, isMind }: { title: string; 
               <p className="text-sm leading-6 text-muted">{area.description}</p>
               <p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted">Témata</p>
               <p className="mt-1 text-sm leading-6 text-ink">{area.topics.join(" · ")}</p>
-              <Link href={area.id === "stravovani" ? "/stravovani" : "#co-chces-resit"} className={`mt-4 inline-flex items-center gap-2 text-sm font-semibold ${tone}`}>
+              <Link href={area.id === "stravovani" ? "/stravovani" : "/co-resim"} className={`mt-4 inline-flex items-center gap-2 text-sm font-semibold ${tone}`}>
                 {area.id === "stravovani" ? "Otevřít plánovač stravování" : "Popsat situaci"}
                 <ArrowRight aria-hidden size={16} />
               </Link>
@@ -186,25 +186,6 @@ function MobileFinanceList() {
 
 export function BodyMindMap() {
   const [activeArea, setActiveArea] = useState<MapArea>(bodyAreas[0]);
-  const activeIsMind = activeArea.pillar === "mind";
-  const activeIsFinance = activeArea.pillar === "finance";
-  const activeIsBridge = activeArea.pillar === "bridge";
-  const activeLabel = activeIsFinance ? "Finance" : activeIsBridge ? "Spojuje tělo a psychiku" : activeIsMind ? "Psychika" : "Tělo";
-  const activeIconClass = activeIsFinance || activeIsBridge
-    ? "grid h-12 w-12 place-items-center rounded-full bg-terracotta/10 text-terracotta"
-    : activeIsMind
-      ? "grid h-12 w-12 place-items-center rounded-full bg-petrol/10 text-petrol"
-      : "grid h-12 w-12 place-items-center rounded-full bg-olive/15 text-olive";
-  const activeLabelClass = activeIsFinance || activeIsBridge
-    ? "text-sm font-semibold text-terracotta"
-    : activeIsMind
-      ? "text-sm font-semibold text-petrol"
-      : "text-sm font-semibold text-olive";
-  const activeAction = activeArea.id === "stravovani"
-    ? { href: "/stravovani", label: "Otevřít plánovač stravování" }
-    : activeIsFinance
-    ? { href: "#finance-kalkulacka", label: activeArea.id === "rozpocet-a-kalkulacka" ? "Otevřít kalkulačku" : "Otevřít finanční přehled" }
-    : { href: "#co-chces-resit", label: "Popsat svoji situaci" };
 
   return (
     <section id="mapa-cloveka" className="bg-cream py-20 sm:py-24">
@@ -253,23 +234,6 @@ export function BodyMindMap() {
             </div>
           </div>
 
-          <div className="mt-8 grid gap-6 rounded-[8px] border border-sand bg-surface p-6 md:grid-cols-[auto_1fr] md:items-start">
-            <span className={activeIconClass}>
-              {activeIsFinance ? <FinanceIcon areaId={activeArea.id} size={22} /> : <AreaIcon areaId={activeArea.id} size={22} />}
-            </span>
-            <div aria-live="polite">
-              <p className={activeLabelClass}>{activeLabel}</p>
-              <h3 className="mt-1 font-display text-2xl font-semibold text-ink">{activeArea.title}</h3>
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">{activeArea.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {activeArea.topics.map((topic) => <span key={topic} className="border border-sand bg-cream px-2.5 py-1 text-xs text-ink">{topic}</span>)}
-              </div>
-              <Link href={activeAction.href} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta">
-                {activeAction.label}
-                <ArrowRight aria-hidden size={16} />
-              </Link>
-            </div>
-          </div>
         </div>
 
         <div className="mt-10 grid gap-10 lg:hidden">
