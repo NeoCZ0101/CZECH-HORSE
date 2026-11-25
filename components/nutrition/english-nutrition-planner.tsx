@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { FoodGuideLinks } from "./food-guide-links";
 import {
   ArrowRight,
   Bot,
@@ -173,7 +173,6 @@ export function EnglishNutritionPlanner() {
   const [plan, setPlan] = useState<PlanItem[]>([
     { foodId: "oats", meal: "Breakfast" },
   ]);
-  const [path, setPath] = useState<"self" | "inspiration">("self");
   const [notice, setNotice] = useState(
     "Add food you want to try during the day.",
   );
@@ -200,7 +199,6 @@ export function EnglishNutritionPlanner() {
         meal: meals[index % meals.length],
       })),
     );
-    setPath("inspiration");
     setNotice(message);
   }
 
@@ -208,43 +206,7 @@ export function EnglishNutritionPlanner() {
     <main className="bg-surface">
       <section id="build" className="border-b border-sand bg-cream py-10 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-3 md:grid-cols-3">
-            <button
-              type="button"
-              onClick={() => {
-                setPath("self");
-                setNotice("Choose foods and build your own day.");
-              }}
-              className={`border p-5 text-left transition ${path === "self" ? "border-forest bg-forest text-cream" : "border-sand bg-surface hover:border-forest/50"}`}
-            >
-              <Utensils className="text-amber" aria-hidden size={21} />
-              <h2 className="mt-4 text-lg font-semibold">Build it yourself</h2>
-              <p
-                className={`mt-2 text-sm leading-6 ${path === "self" ? "text-cream/75" : "text-muted"}`}
-              >
-                Choose ingredients, portions and a place in your day.
-              </p>
-            </button>
-            <Link
-              href="/en/stravovani/meat-and-fish"
-              className={`overflow-hidden border text-left transition ${path === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
-            >
-              <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish-raw.png" alt="Raw meat and fish on a white background" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" /></div>
-              <div className="p-5"><h2 className="text-lg font-semibold">Meat and fish</h2><p className={`mt-2 text-sm leading-6 ${path === "inspiration" ? "text-cream/75" : "text-muted"}`}>Poultry, pork, beef, lamb and fish.</p></div>
-            </Link>
-            <Link
-              href="/en/stravovani/side-dishes"
-              className="overflow-hidden border border-sand bg-surface text-left transition hover:border-petrol focus-visible:outline-petrol"
-            >
-              <div className="relative aspect-[2.4] bg-white">
-                <Image src="/side-dishes.webp" alt="" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" />
-              </div>
-              <div className="p-5">
-                <h2 className="text-lg font-semibold">Side dishes</h2>
-                <p className="mt-2 text-sm leading-6 text-muted">Potatoes, rice, pasta, grains, pulses and dumplings.</p>
-              </div>
-            </Link>
-          </div>
+          <FoodGuideLinks language="en" />
         </div>
       </section>
       <section id="catalogue" className="py-16 sm:py-20">

@@ -33,6 +33,8 @@ export function Header() {
     "/en/stravovani": "/stravovani",
     "/stravovani/prilohy": "/en/stravovani/side-dishes",
     "/en/stravovani/side-dishes": "/stravovani/prilohy",
+    "/stravovani/omacky": "/en/stravovani/sauces",
+    "/en/stravovani/sauces": "/stravovani/omacky",
   };
   const languageHref = translations[pathname] ?? (isEnglish ? "/" : "/en");
   const languageLabel = isEnglish ? "CZ" : "EN";

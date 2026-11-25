@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { FoodGuideLinks } from "./food-guide-links";
 import {
   ArrowRight,
   Bot,
@@ -257,9 +257,6 @@ export function NutritionPlanner() {
   const [planner, setPlanner] = useState<PlannerItem[]>([
     { foodId: nutritionFoods[0].id, meal: "Snídaně" },
   ]);
-  const [activePath, setActivePath] = useState<
-    "self" | "inspiration"
-  >("self");
   const [notice, setNotice] = useState(
     "Přidej potraviny, které chceš během dne vyzkoušet.",
   );
@@ -294,7 +291,6 @@ export function NutritionPlanner() {
         meal: meals[index % meals.length],
       })),
     );
-    setActivePath("inspiration");
     setNotice(message);
   }
 
@@ -314,47 +310,7 @@ export function NutritionPlanner() {
     <main className="bg-surface">
       <section id="sestavit" className="border-b border-sand bg-cream py-10 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-3 md:grid-cols-3">
-            <button
-              type="button"
-              onClick={() => {
-                setActivePath("self");
-                setNotice("Vyber potraviny a postav si den podle sebe.");
-              }}
-              className={`border p-5 text-left transition ${activePath === "self" ? "border-forest bg-forest text-cream" : "border-sand bg-surface hover:border-forest/50"}`}
-            >
-              <Utensils
-                className={activePath === "self" ? "text-amber" : "text-olive"}
-                aria-hidden
-                size={21}
-              />
-              <h2 className="mt-4 text-lg font-semibold">Sestavit si sám</h2>
-              <p
-                className={`mt-2 text-sm leading-6 ${activePath === "self" ? "text-cream/75" : "text-muted"}`}
-              >
-                Vybereš si potraviny, porce a místo v průběhu dne.
-              </p>
-            </button>
-            <Link
-              href="/stravovani/maso-a-ryby"
-              className={`overflow-hidden border text-left transition ${activePath === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
-            >
-              <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish-raw.png" alt="Syrové maso a ryby na bílém pozadí" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" /></div>
-              <div className="p-5"><h2 className="text-lg font-semibold">Maso a ryby</h2><p className={`mt-2 text-sm leading-6 ${activePath === "inspiration" ? "text-cream/75" : "text-muted"}`}>Drůbež, vepřové, hovězí, jehněčí i ryby.</p></div>
-            </Link>
-            <Link
-              href="/stravovani/prilohy"
-              className="overflow-hidden border border-sand bg-surface text-left transition hover:border-petrol focus-visible:outline-petrol"
-            >
-              <div className="relative aspect-[2.4] bg-white">
-                <Image src="/side-dishes.webp" alt="" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" />
-              </div>
-              <div className="p-5">
-                <h2 className="text-lg font-semibold">Přílohy</h2>
-                <p className="mt-2 text-sm leading-6 text-muted">Brambory, rýže, těstoviny, obiloviny, luštěniny a knedlíky.</p>
-              </div>
-            </Link>
-          </div>
+          <FoodGuideLinks language="cs" />
         </div>
       </section>
 
