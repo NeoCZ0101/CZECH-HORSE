@@ -14,7 +14,7 @@ import {
   Utensils,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type EnglishFood = {
   id: string;
@@ -178,11 +178,6 @@ export function EnglishNutritionPlanner() {
   const [notice, setNotice] = useState(
     "Add food you want to try during the day.",
   );
-  const [showRawMeat, setShowRawMeat] = useState(false);
-  useEffect(() => {
-    const interval = window.setInterval(() => setShowRawMeat((current) => !current), 5000);
-    return () => window.clearInterval(interval);
-  }, []);
   const visibleFoods = useMemo(
     () =>
       filter === "All"
@@ -235,7 +230,7 @@ export function EnglishNutritionPlanner() {
               href="/en/stravovani/meat-and-fish"
               className={`overflow-hidden border text-left transition ${path === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
             >
-              <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish.png" alt="Finished meat and fish plates on a white background" fill sizes="(min-width: 768px) 30vw, 92vw" className={`object-contain transition-opacity duration-700 ${showRawMeat ? "opacity-0" : "opacity-100"}`} /><Image src="/food-meat-fish-raw.png" alt="Raw meat and fish on a white background" fill sizes="(min-width: 768px) 30vw, 92vw" className={`object-contain transition-opacity duration-700 ${showRawMeat ? "opacity-100" : "opacity-0"}`} /></div>
+              <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish-raw.png" alt="Raw meat and fish on a white background" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-contain" /></div>
               <div className="p-5"><h2 className="text-lg font-semibold">Meat and fish</h2><p className={`mt-2 text-sm leading-6 ${path === "inspiration" ? "text-cream/75" : "text-muted"}`}>Poultry, pork, beef, lamb and fish.</p></div>
             </Link>
             <button
