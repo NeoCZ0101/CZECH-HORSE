@@ -22,8 +22,6 @@ import {
   Utensils,
 } from "lucide-react";
 import { useState } from "react";
-import { ScrollReveal } from "@/components/home/scroll-reveal";
-import { SectionHeading } from "@/components/sections/section-heading";
 import { financeAreas, type FinanceArea } from "@/lib/finance-data";
 import { bodyAreas, mindAreas, type HomeArea } from "@/lib/homepage-data";
 
@@ -190,16 +188,6 @@ export function BodyMindMap() {
   return (
     <section id="mapa-cloveka" className="bg-cream py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
-          <div className="flex flex-col gap-6 border-b border-sand pb-10 lg:flex-row lg:items-end lg:justify-between">
-            <SectionHeading
-              title="Začni u oblasti, ve které se poznáváš."
-              description="Tělo, psychika a finance se propisují do toho, jak člověk funguje v každém dni. Každá oblast ukazuje, kde můžeš začít a co s ní může souviset."
-            />
-            <p className="max-w-xs text-sm leading-6 text-muted">Na počítači vyber oblast v jednom ze tří sloupců. Na telefonu se mapa přepne do přehledného stromu.</p>
-          </div>
-        </ScrollReveal>
-
         <div className="mt-10 hidden lg:block">
           <div className="grid items-start gap-5 xl:gap-6 lg:grid-cols-3">
             <div>
