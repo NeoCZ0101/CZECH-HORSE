@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   Bot,
@@ -335,14 +336,8 @@ export function NutritionPlanner() {
                 Vybereš si potraviny, porce a místo v průběhu dne.
               </p>
             </button>
-            <button
-              type="button"
-              onClick={() =>
-                applyPlan(
-                  nutritionPlans[0].items,
-                  "Načetli jsme jednoduchou inspiraci. Uprav si ji podle sebe.",
-                )
-              }
+            <Link
+              href="/stravovani/maso-a-ryby"
               className={`border p-5 text-left transition ${activePath === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
             >
               <Sparkles
@@ -360,7 +355,7 @@ export function NutritionPlanner() {
               >
                 Hotový jednoduchý směr, který můžeš rozebrat a poskládat jinak.
               </p>
-            </button>
+            </Link>
             <button
               type="button"
               onClick={() => {

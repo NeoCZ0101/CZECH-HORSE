@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowRight,
   Bot,
@@ -225,14 +226,8 @@ export function EnglishNutritionPlanner() {
                 Choose ingredients, portions and a place in your day.
               </p>
             </button>
-            <button
-              type="button"
-              onClick={() =>
-                apply(
-                  ["oats", "eggs", "lentils"],
-                  "A simple inspiration is ready. Adjust it to your life.",
-                )
-              }
+            <Link
+              href="/en/stravovani/meat-and-fish"
               className={`border p-5 text-left transition ${path === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
             >
               <Sparkles className="text-amber" aria-hidden size={21} />
@@ -242,7 +237,7 @@ export function EnglishNutritionPlanner() {
               >
                 Start with a direction and change what does not fit.
               </p>
-            </button>
+            </Link>
             <button
               type="button"
               onClick={() => {
