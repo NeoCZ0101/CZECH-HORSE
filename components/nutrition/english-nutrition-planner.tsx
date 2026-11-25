@@ -228,15 +228,10 @@ export function EnglishNutritionPlanner() {
             </button>
             <Link
               href="/en/stravovani/meat-and-fish"
-              className={`border p-5 text-left transition ${path === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
+              className={`overflow-hidden border text-left transition ${path === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
             >
-              <Sparkles className="text-amber" aria-hidden size={21} />
-              <h2 className="mt-4 text-lg font-semibold">Get inspired</h2>
-              <p
-                className={`mt-2 text-sm leading-6 ${path === "inspiration" ? "text-cream/75" : "text-muted"}`}
-              >
-                Start with a direction and change what does not fit.
-              </p>
+              <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish.png" alt="Finished meat and fish plates on a white background" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-cover" /></div>
+              <div className="p-5"><p className="text-xs font-semibold uppercase tracking-[0.12em] text-petrol">CATALOGUE · MEAT AND FISH</p><h2 className="mt-3 text-lg font-semibold">Meat and fish</h2><p className={`mt-2 text-sm leading-6 ${path === "inspiration" ? "text-cream/75" : "text-muted"}`}>Poultry, pork, beef, lamb and fish with context on origin, flavour and everyday use.</p></div>
             </Link>
             <button
               type="button"
