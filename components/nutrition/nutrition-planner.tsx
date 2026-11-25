@@ -341,7 +341,7 @@ export function NutritionPlanner() {
               className={`overflow-hidden border text-left transition ${activePath === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
             >
               <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish.png" alt="Hotový talíř s masem a rybou na bílém pozadí" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-cover" /></div>
-              <div className="p-5"><p className="text-xs font-semibold uppercase tracking-[0.12em] text-petrol">KATALOG · MASO A RYBY</p><h2 className="mt-3 text-lg font-semibold">Maso a ryby</h2><p className={`mt-2 text-sm leading-6 ${activePath === "inspiration" ? "text-cream/75" : "text-muted"}`}>Drůbež, vepřové, hovězí, jehněčí i ryby v souvislostech původu, chuti a každodenního použití.</p></div>
+              <div className="p-5"><h2 className="text-lg font-semibold">Maso a ryby</h2><p className={`mt-2 text-sm leading-6 ${activePath === "inspiration" ? "text-cream/75" : "text-muted"}`}>Drůbež, vepřové, hovězí, jehněčí i ryby.</p></div>
             </Link>
             <button
               type="button"
