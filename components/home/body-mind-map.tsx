@@ -58,8 +58,8 @@ function AreaNode({ area, active, onSelect }: { area: HomeArea; active: boolean;
   const isMind = area.pillar === "mind";
   const theme = isMind
     ? active
-      ? "border-petrol bg-petrol text-cream"
-      : "border-petrol/25 bg-surface text-ink hover:border-petrol hover:bg-petrol/10"
+      ? "border-amber bg-amber text-forest-deep"
+      : "border-amber/35 bg-surface text-ink hover:border-amber hover:bg-amber/10"
     : active
       ? "border-olive bg-olive text-cream"
       : "border-olive/35 bg-surface text-ink hover:border-olive hover:bg-olive/10";
@@ -73,12 +73,12 @@ function AreaNode({ area, active, onSelect }: { area: HomeArea; active: boolean;
       onMouseEnter={() => onSelect(area)}
       className={`flex min-h-[5.4rem] w-full items-center gap-3 rounded-[6px] border p-3 text-left transition duration-200 ${theme}`}
     >
-      <span className={active ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream/15" : isMind ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-petrol/10 text-petrol" : "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-olive/15 text-olive"}>
+      <span className={active ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream/15" : isMind ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-amber/10 text-amber" : "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-olive/15 text-olive"}>
         <AreaIcon areaId={area.id} size={18} />
       </span>
       <span className="min-w-0">
         <span className="block text-sm font-semibold leading-5">{area.shortTitle}</span>
-        <span className={active ? "mt-1 block text-xs leading-4 text-cream/75" : "mt-1 block text-xs leading-4 text-muted"}>
+        <span className={active ? isMind ? "mt-1 block text-xs leading-4 text-forest-deep/70" : "mt-1 block text-xs leading-4 text-cream/75" : "mt-1 block text-xs leading-4 text-muted"}>
           {area.topics.slice(0, 2).join(" · ")}
         </span>
       </span>
@@ -88,8 +88,8 @@ function AreaNode({ area, active, onSelect }: { area: HomeArea; active: boolean;
 
 function FinanceNode({ area, active, onSelect }: { area: FinanceArea; active: boolean; onSelect: (area: FinanceArea) => void }) {
   const theme = active
-    ? "border-terracotta bg-terracotta text-cream"
-    : "border-terracotta/40 bg-surface text-ink hover:border-terracotta hover:bg-terracotta/10";
+    ? "border-petrol bg-petrol text-cream"
+    : "border-petrol/40 bg-surface text-ink hover:border-petrol hover:bg-petrol/10";
 
   return (
     <button
@@ -100,7 +100,7 @@ function FinanceNode({ area, active, onSelect }: { area: FinanceArea; active: bo
       onMouseEnter={() => onSelect(area)}
       className={`flex min-h-[5.4rem] w-full items-center gap-3 rounded-[6px] border p-3 text-left transition duration-200 ${theme}`}
     >
-      <span className={active ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream/15" : "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-terracotta/10 text-terracotta"}>
+      <span className={active ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream/15" : "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-petrol/10 text-petrol"}>
         <FinanceIcon areaId={area.id} size={18} />
       </span>
       <span className="min-w-0">
@@ -115,7 +115,7 @@ function FinanceNode({ area, active, onSelect }: { area: FinanceArea; active: bo
 
 function MobileAreaList({ title, description, areas, isMind }: { title: string; description: string; areas: HomeArea[]; isMind: boolean }) {
   const router = useRouter();
-  const tone = isMind ? "text-petrol" : "text-olive";
+  const tone = isMind ? "text-amber" : "text-olive";
 
   return (
     <div>
@@ -126,7 +126,7 @@ function MobileAreaList({ title, description, areas, isMind }: { title: string; 
           <details key={area.id} className="group border-b border-sand last:border-b-0">
             <summary onClick={() => area.id === "stravovani" ? router.push("/stravovani") : undefined} className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-3 py-3 text-left marker:content-none">
               <span className="flex min-w-0 items-center gap-3">
-                <span className={isMind ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-petrol/10 text-petrol" : "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-olive/15 text-olive"}>
+                <span className={isMind ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-amber/10 text-amber" : "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-olive/15 text-olive"}>
                   <AreaIcon areaId={area.id} size={18} />
                 </span>
                 <span className="text-sm font-semibold text-ink">{area.title}</span>
@@ -152,14 +152,14 @@ function MobileAreaList({ title, description, areas, isMind }: { title: string; 
 function MobileFinanceList() {
   return (
     <div>
-      <p className="text-sm font-semibold text-terracotta">FINANCE</p>
+      <p className="text-sm font-semibold text-petrol">FINANCE</p>
       <p className="mt-1 text-sm leading-6 text-muted">Jak mám přehled, jak vydělávám a pro co se chci rozhodovat.</p>
       <div className="mt-4 border-y border-sand">
         {financeAreas.map((area) => (
           <details key={area.id} className="group border-b border-sand last:border-b-0">
             <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-3 py-3 text-left marker:content-none">
               <span className="flex min-w-0 items-center gap-3">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-terracotta/10 text-terracotta">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-petrol/10 text-petrol">
                   <FinanceIcon areaId={area.id} size={18} />
                 </span>
                 <span className="text-sm font-semibold text-ink">{area.title}</span>
@@ -170,7 +170,7 @@ function MobileFinanceList() {
               <p className="text-sm leading-6 text-muted">{area.description}</p>
               <p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted">Témata</p>
               <p className="mt-1 text-sm leading-6 text-ink">{area.topics.join(" · ")}</p>
-              <Link href="#finance-kalkulacka" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-terracotta">
+              <Link href="#finance-kalkulacka" className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-petrol">
                 Otevřít finanční přehled
                 <ArrowRight aria-hidden size={16} />
               </Link>
@@ -201,7 +201,7 @@ export function BodyMindMap() {
             </div>
 
             <div>
-              <div className="min-h-[4.75rem] border-l-2 border-petrol pl-4">
+              <div className="min-h-[4.75rem] border-l-2 border-amber pl-4">
                 <p className="text-lg font-semibold text-forest-deep">PSYCHIKA</p>
                 <p className="mt-1 text-sm leading-5 text-muted">Jak se cítím, přemýšlím a funguju mezi lidmi.</p>
               </div>
@@ -211,7 +211,7 @@ export function BodyMindMap() {
             </div>
 
             <div>
-              <div className="min-h-[4.75rem] border-l-2 border-terracotta pl-4">
+              <div className="min-h-[4.75rem] border-l-2 border-petrol pl-4">
                 <p className="text-lg font-semibold text-forest-deep">FINANCE</p>
                 <p className="mt-1 text-sm leading-5 text-muted">Jak mám přehled, jak vydělávám a pro co se chci rozhodovat.</p>
               </div>

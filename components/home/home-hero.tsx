@@ -62,19 +62,19 @@ export function HomeHero() {
             </div>
           </section>
 
-          <section className="flex min-h-[39rem] flex-col bg-forest-deep text-cream sm:min-h-[44rem]" aria-labelledby="hero-mind-title">
-            <div className="flex flex-col gap-4 border-b border-cream/20 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6">
+          <section className="flex min-h-[39rem] flex-col bg-amber text-forest-deep sm:min-h-[44rem]" aria-labelledby="hero-mind-title">
+            <div className="flex flex-col gap-4 border-b border-forest/20 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6">
               <div>
-                <p className="text-xs font-semibold tracking-[0.14em] text-sage">PSYCHIKA</p>
+                <p className="text-xs font-semibold tracking-[0.14em] text-petrol">PSYCHIKA</p>
                 <h2 id="hero-mind-title" className="mt-2 font-display text-3xl font-semibold leading-tight sm:text-4xl">Pohoda. Kontakt. Jistota.</h2>
               </div>
-              <Link href="#mapa-cloveka" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-cream transition hover:text-amber">
+              <Link href="#mapa-cloveka" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-forest-deep transition hover:text-petrol">
                 Prozkoumat psychiku
                 <ArrowRight aria-hidden size={17} />
               </Link>
             </div>
 
-            <figure className="relative min-h-[25rem] flex-1 border-b border-cream/20 sm:min-h-[29rem]">
+            <figure className="relative min-h-[25rem] flex-1 border-b border-forest/20 sm:min-h-[29rem]">
               <Image
                 src="/hero-psychology.png"
                 alt="Muž v klidném otevřeném rozhovoru v příjemném interiéru."
@@ -85,8 +85,8 @@ export function HomeHero() {
             </figure>
 
             <div className="grid gap-4 px-5 py-5 sm:grid-cols-[auto_1fr] sm:px-7 sm:py-6">
-              <Brain className="text-amber" aria-hidden size={22} />
-              <p className="text-sm leading-6 text-cream/75">Klidnější fungování mezi lidmi, ve vztazích i ve chvílích, kdy je toho moc.</p>
+              <Brain className="text-petrol" aria-hidden size={22} />
+              <p className="text-sm leading-6 text-forest-deep/75">Klidnější fungování mezi lidmi, ve vztazích i ve chvílích, kdy je toho moc.</p>
             </div>
           </section>
 
