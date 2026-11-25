@@ -312,32 +312,6 @@ export function NutritionPlanner() {
 
   return (
     <main className="bg-surface">
-      <section className="border-b border-forest-deep/10 bg-mist py-16 sm:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(20rem,0.72fr)] lg:items-end lg:px-8">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-olive">
-              TĚLO · STRAVOVÁNÍ
-            </p>
-            <h1 className="mt-4 max-w-3xl font-display text-4xl font-semibold leading-[1.04] text-forest-deep sm:text-6xl">
-              Stravování
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-muted sm:text-lg">
-              Sestav si vlastní den, inspiruj se hotovým směrem nebo později
-              využij jídelníček od partnera. U každé potraviny se podíváš na
-              přínosy, omezení, cenu i to, odkud přichází.
-            </p>
-          </div>
-          <div className="border-l-2 border-terracotta pl-5 text-sm leading-6 text-muted">
-            <p className="font-semibold text-ink">Začínáme prakticky.</p>
-            <p className="mt-2">
-              Neřešíme dokonalý jídelníček. Hledáme kombinace, které se dají
-              opakovat v běžném týdnu a dávají smysl tvému cíli, času i
-              rozpočtu.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <section id="sestavit" className="border-b border-sand bg-cream py-10 sm:py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-3 md:grid-cols-3">
