@@ -264,6 +264,11 @@ export function NutritionPlanner() {
   const [notice, setNotice] = useState(
     "Přidej potraviny, které chceš během dne vyzkoušet.",
   );
+  const [showRawMeat, setShowRawMeat] = useState(false);
+  useEffect(() => {
+    const interval = window.setInterval(() => setShowRawMeat((current) => !current), 5000);
+    return () => window.clearInterval(interval);
+  }, []);
   const selectedFood = nutritionFoods.find(
     (food) => food.id === selectedFoodId,
   );
@@ -340,7 +345,7 @@ export function NutritionPlanner() {
               href="/stravovani/maso-a-ryby"
               className={`overflow-hidden border text-left transition ${activePath === "inspiration" ? "border-petrol bg-petrol text-cream" : "border-sand bg-surface hover:border-petrol/50"}`}
             >
-              <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish.png" alt="Hotový talíř s masem a rybou na bílém pozadí" fill sizes="(min-width: 768px) 30vw, 92vw" className="object-cover" /></div>
+              <div className="relative aspect-[2.4] overflow-hidden bg-white"><Image src="/food-meat-fish.png" alt="Hotový talíř s masem a rybou na bílém pozadí" fill sizes="(min-width: 768px) 30vw, 92vw" className={`object-cover transition-opacity duration-700 ${showRawMeat ? "opacity-0" : "opacity-100"}`} /><Image src="/food-meat-fish-raw.png" alt="Syrové maso a ryby na bílém pozadí" fill sizes="(min-width: 768px) 30vw, 92vw" className={`object-cover transition-opacity duration-700 ${showRawMeat ? "opacity-100" : "opacity-0"}`} /></div>
               <div className="p-5"><h2 className="text-lg font-semibold">Maso a ryby</h2><p className={`mt-2 text-sm leading-6 ${activePath === "inspiration" ? "text-cream/75" : "text-muted"}`}>Drůbež, vepřové, hovězí, jehněčí i ryby.</p></div>
             </Link>
             <button
