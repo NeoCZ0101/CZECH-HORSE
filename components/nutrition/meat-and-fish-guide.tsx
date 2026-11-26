@@ -1,3 +1,4 @@
+import { PoultryLinks, PoultryGuide } from "./poultry-guide";
 import Image from "next/image";
 import { SalmonRecipe } from "./salmon-recipe";
 import { RawMeatGallery } from "./raw-meat-gallery";
@@ -61,7 +62,7 @@ export function MeatAndFishGuide({ language }: { language: GuideLanguage }) {
       <section className="py-14 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:px-8 xl:grid-cols-3">
           {content.cards.map((card) => (
-            <article key={card.title} className="min-w-0 overflow-hidden border border-sand bg-cream">
+            <article key={card.title} id={card.illustration === "poultry" ? (language === "cs" ? "drubez" : "poultry") : undefined} className="scroll-mt-24 min-w-0 overflow-hidden border border-sand bg-cream">
               <div className="border-b border-sand bg-white px-3 py-3">
                 <Image
                   src={`/animals-${card.illustration}.webp`}
@@ -74,7 +75,7 @@ export function MeatAndFishGuide({ language }: { language: GuideLanguage }) {
               </div>
               <div className="p-5 sm:p-6">
                 <h2 className="font-display text-2xl font-semibold text-ink">{card.title}</h2>
-                <p className="mt-1 text-sm font-semibold text-olive">{card.subtitle}</p>
+                {card.illustration === "poultry" ? <PoultryLinks language={language} /> : <p className="mt-1 text-sm font-semibold text-olive">{card.subtitle}</p>}
                 <p className="mt-3 text-sm leading-6 text-muted">{card.text}</p>
                 <div className="mt-5 grid gap-3 border-t border-sand pt-4 text-sm">
                   <p className="flex gap-2 text-muted"><Globe2 className="mt-0.5 shrink-0 text-petrol" aria-hidden size={16} /><span><strong className="font-semibold text-ink">{language === "en" ? "Where:" : "Kde:"}</strong> {card.places}</span></p>
@@ -87,6 +88,7 @@ export function MeatAndFishGuide({ language }: { language: GuideLanguage }) {
           ))}
         </div>
       </section>
+      <PoultryGuide language={language} />
       <SalmonProfile language={language} />
       <SalmonRecipe language={language} />
       <section className="border-t border-sand bg-mist py-12"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"><div><p className="text-sm font-semibold text-terracotta">{content.noteTitle}</p><p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{content.note}</p></div><Link href={homeHref} className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta">{content.related}<ArrowLeft className="rotate-180" aria-hidden size={16} /></Link></div></section>

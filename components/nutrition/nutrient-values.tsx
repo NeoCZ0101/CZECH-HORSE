@@ -1,4 +1,8 @@
 const entries = [
+  { ids: ["chicken", "kure"], ref: 230, state: ["syrová prsa bez kůže", "raw skinless breast"], kcal: 102, protein: 22.8, fibre: 0, fat: 1.2, carbs: 0 },
+  { ids: ["turkey", "kruta"], ref: 452, state: ["syrová prsa bez kosti a kůže", "raw boneless skinless breast"], kcal: 107, protein: 24.2, fibre: 0, fat: 1.1, carbs: 0 },
+  { ids: ["duck", "kachna"], ref: 588, state: ["syrové stehno s kůží, jedlá část bez kosti", "raw leg with skin, edible portion excluding bone"], kcal: 233, protein: 15.6, fibre: 0, fat: 19, carbs: 0 },
+  { ids: ["goose", "husa"], ref: 703, state: ["syrové stehno s kůží, jedlá část bez kosti", "raw thigh with skin, edible portion excluding bone"], kcal: 354, protein: 13.2, fibre: 0, fat: 33.5, carbs: 0 },
   { ids: ["ovesne-vlocky", "oats"], ref: 188, state: ["suché vločky", "dry flakes"], kcal: 353, protein: 13.1, fibre: 12.7, fat: 5.8, carbs: 55.8 },
   { ids: ["vejce", "eggs"], ref: 78, state: ["syrové, bez skořápky", "raw, without shell"], kcal: 138, protein: 12.5, fibre: 0, fat: 9.2, carbs: 1.3 },
   { ids: ["cocka", "lentils"], ref: 647, state: ["červená, suchá", "red, dry"], kcal: 313, protein: 24.7, fibre: 22.6, fat: 1.3, carbs: 39.2 },
