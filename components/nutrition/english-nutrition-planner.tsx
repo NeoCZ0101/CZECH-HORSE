@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { RecipeKitchen } from "./recipe-kitchen";
+import { NutrientValues } from "./nutrient-values";
 import { FoodGuideLinks } from "./food-guide-links";
 import {
   ArrowRight,
@@ -10,7 +12,6 @@ import {
   Globe2,
   Plus,
   Sparkles,
-  Utensils,
   X,
 } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -91,7 +92,7 @@ const foods: EnglishFood[] = [
   {
     id: "salmon",
     name: "Salmon",
-    category: "Meat and fish",
+    category: "Protein",
     image: "/food-salmon.png",
     summary:
       "A flavourful option when you want protein and quality fats in one meal.",
@@ -132,38 +133,6 @@ const categories = [
   "Fibre",
   "Fats",
   "Carbohydrates",
-  "Meat and fish",
-];
-const recipes = [
-  {
-    id: "oat-bowl",
-    name: "Fruit oat bowl",
-    description:
-      "A quick breakfast combining carbohydrates, fibre and some protein.",
-    time: "10 min",
-    tag: "breakfast",
-    image: "/food-oats.png",
-    items: ["oats", "eggs"],
-  },
-  {
-    id: "lentil-bowl",
-    name: "Lentil bowl with vegetables",
-    description:
-      "A filling plant-forward meal for a practical week and a steady budget.",
-    time: "30 min",
-    tag: "budget",
-    image: "/food-lentils.png",
-    items: ["lentils", "oats"],
-  },
-  {
-    id: "salmon-plate",
-    name: "Salmon plate",
-    description: "A simple main meal with fish, a side and greens.",
-    time: "25 min",
-    tag: "main meal",
-    image: "/food-salmon.png",
-    items: ["salmon", "lentils"],
-  },
 ];
 const meals: PlanItem["meal"][] = ["Breakfast", "Lunch", "Dinner"];
 
@@ -209,21 +178,20 @@ export function EnglishNutritionPlanner() {
           <FoodGuideLinks language="en" />
         </div>
       </section>
+      <RecipeKitchen language="en" isAdded={id => plan.some(entry => entry.foodId === id)} onAdd={(item) => {
+        if (!plan.some(entry => entry.foodId === item)) toggle(item);
+      }} />
       <section id="catalogue" className="py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-8">
           <div>
             <div className="flex flex-col gap-5 border-b border-sand pb-6 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-olive">
-                  FOOD AND MEAL CATALOGUE
-                </p>
                 <h2 className="mt-2 font-display text-3xl font-semibold text-ink sm:text-4xl">
-                  Start with a finished plate.
+                  Ingredient nutrition facts
                 </h2>
               </div>
               <p className="max-w-xs text-sm leading-6 text-muted">
-                Open a plate, learn what is in it and reshape it around your own
-                day.
+                Values per 100 g of edible ingredient, not per finished meal.
               </p>
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -232,6 +200,7 @@ export function EnglishNutritionPlanner() {
                   key={item}
                   type="button"
                   onClick={() => setFilter(item)}
+                  aria-pressed={filter === item}
                   className={`min-h-10 border px-3 py-2 text-sm font-medium transition ${filter === item ? "border-forest bg-forest text-cream" : "border-sand bg-cream text-muted hover:border-forest/50 hover:text-ink"}`}
                 >
                   {item}
@@ -249,18 +218,6 @@ export function EnglishNutritionPlanner() {
                     onClick={() => setSelectedId(food.id)}
                     className="block w-full text-left"
                   >
-                    <div className="relative aspect-[1.35] overflow-hidden bg-mist">
-                      <Image
-                        src={food.image}
-                        alt={food.name}
-                        fill
-                        sizes="(min-width: 1280px) 22vw, (min-width: 768px) 31vw, 92vw"
-                        className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                      />
-                      <span className="absolute left-3 top-3 border border-cream/70 bg-forest-deep/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-cream">
-                        {food.category}
-                      </span>
-                    </div>
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-3">
                         <div>
@@ -289,6 +246,7 @@ export function EnglishNutritionPlanner() {
                       </div>
                     </div>
                   </button>
+                  <NutrientValues id={food.id} language="en" />
                   <div className="border-t border-sand px-4 py-3">
                     <button
                       type="button"
@@ -307,77 +265,6 @@ export function EnglishNutritionPlanner() {
                   </div>
                 </article>
               ))}
-            </div>
-            <div id="recipes" className="mt-14 border-t border-sand pt-8">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-olive">
-                    RECIPES
-                  </p>
-                  <h3 className="mt-2 font-display text-2xl font-semibold text-ink sm:text-3xl">
-                    Finished plates for inspiration.
-                  </h3>
-                </div>
-                <p className="max-w-sm text-sm leading-6 text-muted">
-                  Load a recipe into your day, then change it to fit you.
-                </p>
-              </div>
-              <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {recipes.map((recipe) => (
-                  <article
-                    key={recipe.id}
-                    className="overflow-hidden border border-sand bg-cream"
-                  >
-                    <div className="relative aspect-[1.5] overflow-hidden bg-mist">
-                      <Image
-                        src={recipe.image}
-                        alt={recipe.name}
-                        fill
-                        sizes="(min-width: 1280px) 22vw, (min-width: 768px) 31vw, 92vw"
-                        className="object-cover"
-                      />
-                      <span className="absolute left-3 top-3 border border-cream/70 bg-forest-deep/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-cream">
-                        {recipe.tag}
-                      </span>
-                    </div>
-                    <div className="p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <h4 className="font-display text-xl font-semibold text-ink">
-                            {recipe.name}
-                          </h4>
-                          <p className="mt-1 text-sm leading-6 text-muted">
-                            {recipe.description}
-                          </p>
-                        </div>
-                        <span className="shrink-0 text-xs font-semibold text-olive">
-                          {recipe.time}
-                        </span>
-                      </div>
-                      <p className="mt-4 text-xs text-muted">
-                        {recipe.items
-                          .map(
-                            (id) => foods.find((food) => food.id === id)?.name,
-                          )
-                          .join(" · ")}
-                      </p>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          apply(
-                            recipe.items,
-                            `The ${recipe.name} is in your day. Adjust it to fit.`,
-                          )
-                        }
-                        className="mt-4 inline-flex min-h-10 items-center gap-2 border border-forest px-3 py-2 text-sm font-semibold text-forest transition hover:bg-mist"
-                      >
-                        <Utensils aria-hidden size={15} />
-                        Add recipe to day
-                      </button>
-                    </div>
-                  </article>
-                ))}
-              </div>
             </div>
             <div className="mt-8 border border-sand bg-mist px-5 py-5">
               <div className="flex gap-3">

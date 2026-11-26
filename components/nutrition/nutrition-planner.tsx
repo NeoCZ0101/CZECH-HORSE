@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { RecipeKitchen } from "./recipe-kitchen";
+import { NutrientValues } from "./nutrient-values";
 import { FoodGuideLinks } from "./food-guide-links";
 import {
   ArrowRight,
@@ -24,7 +26,6 @@ import { useMemo, useState } from "react";
 import {
   nutritionFoods,
   nutritionPlans,
-  nutritionRecipes,
   type NutritionCategory,
   type NutritionFood,
 } from "@/lib/nutrition-data";
@@ -37,7 +38,6 @@ const categories: Array<"Vše" | NutritionCategory> = [
   "Vláknina",
   "Tuky",
   "Sacharidy",
-  "Maso a ryby",
 ];
 const meals: PlannerItem["meal"][] = ["Snídaně", "Oběd", "Večeře"];
 
@@ -55,18 +55,6 @@ function FoodCard({
   return (
     <article className="group overflow-hidden border border-sand bg-surface transition duration-200 hover:-translate-y-0.5 hover:border-forest/50 hover:shadow-[0_14px_34px_rgba(37,40,33,0.08)]">
       <button type="button" onClick={onOpen} className="block w-full text-left">
-        <div className="relative aspect-[1.35] overflow-hidden bg-mist">
-          <Image
-            src={food.image}
-            alt={food.name}
-            fill
-            sizes="(min-width: 1280px) 22vw, (min-width: 768px) 31vw, 92vw"
-            className="object-cover transition duration-500 group-hover:scale-[1.03]"
-          />
-          <span className="absolute left-3 top-3 border border-cream/70 bg-forest-deep/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-cream">
-            {food.category}
-          </span>
-        </div>
         <div className="p-4">
           <div className="flex items-start justify-between gap-3">
             <div>
@@ -95,6 +83,7 @@ function FoodCard({
           </div>
         </div>
       </button>
+      <NutrientValues id={food.id} language="cs" />
       <div className="flex items-center justify-between border-t border-sand px-4 py-3">
         <span className="text-xs text-muted">Porce: {food.portions}</span>
         <button
@@ -282,7 +271,7 @@ export function NutritionPlanner() {
     );
   }
 
-  function applyPlan(items: string[], message: string) {
+  function applyPlan(items: readonly string[], message: string) {
     setPlanner(
       items.map((name, index) => ({
         foodId:
@@ -302,9 +291,6 @@ export function NutritionPlanner() {
     );
   }
 
-  function applyRecipe(items: string[], message: string) {
-    applyPlan(items, message);
-  }
 
   return (
     <main className="bg-surface">
@@ -314,21 +300,21 @@ export function NutritionPlanner() {
         </div>
       </section>
 
+      <RecipeKitchen language="cs" isAdded={name => planner.some(entry => nutritionFoods.find(food => food.id === entry.foodId)?.name === name)} onAdd={(item) => {
+        const food = nutritionFoods.find(entry => entry.name === item);
+        if (food && !planner.some(entry => entry.foodId === food.id)) toggleFood(food.id);
+      }} />
       <section id="katalog" className="py-16 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-1 lg:px-8">
           <div>
             <div className="flex flex-col gap-5 border-b border-sand pb-6 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-olive">
-                  KATALOG JÍDEL A SUROVIN
-                </p>
                 <h2 className="mt-2 font-display text-3xl font-semibold text-ink sm:text-4xl">
-                  Začni u jednoho jídla.
+                  Nutriční hodnoty surovin
                 </h2>
               </div>
               <p className="max-w-xs text-sm leading-6 text-muted">
-                Prohlédni si hotový talíř, otevři si informace a potom ho uprav
-                podle sebe.
+                Hodnoty na 100 g jedlé části suroviny, ne na hotovou porci jídla.
               </p>
             </div>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -337,6 +323,7 @@ export function NutritionPlanner() {
                   key={item}
                   type="button"
                   onClick={() => setCategory(item)}
+                  aria-pressed={category === item}
                   className={`min-h-10 border px-3 py-2 text-sm font-medium transition ${category === item ? "border-forest bg-forest text-cream" : "border-sand bg-cream text-muted hover:border-forest/50 hover:text-ink"}`}
                 >
                   {item}
@@ -353,73 +340,6 @@ export function NutritionPlanner() {
                   onOpen={() => setSelectedFoodId(food.id)}
                 />
               ))}
-            </div>
-          <div id="recepty" className="mt-14 border-t border-sand pt-8">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-olive">
-                    RECEPTY
-                  </p>
-                  <h3 className="mt-2 font-display text-2xl font-semibold text-ink sm:text-3xl">
-                    Hotové talíře pro inspiraci.
-                  </h3>
-                </div>
-                <p className="max-w-sm text-sm leading-6 text-muted">
-                  Recept načteš do svého dne a pak ho můžeš dál přestavět.
-                </p>
-              </div>
-              <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {nutritionRecipes.map((recipe) => (
-                  <article
-                    key={recipe.id}
-                    className="overflow-hidden border border-sand bg-cream"
-                  >
-                    <div className="relative aspect-[1.5] overflow-hidden bg-mist">
-                      <Image
-                        src={recipe.image}
-                        alt={recipe.name}
-                        fill
-                        sizes="(min-width: 1280px) 22vw, (min-width: 768px) 31vw, 92vw"
-                        className="object-cover"
-                      />
-                      <span className="absolute left-3 top-3 border border-cream/70 bg-forest-deep/80 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-cream">
-                        {recipe.tag}
-                      </span>
-                    </div>
-                    <div className="p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <h4 className="font-display text-xl font-semibold text-ink">
-                            {recipe.name}
-                          </h4>
-                          <p className="mt-1 text-sm leading-6 text-muted">
-                            {recipe.description}
-                          </p>
-                        </div>
-                        <span className="shrink-0 text-xs font-semibold text-olive">
-                          {recipe.time}
-                        </span>
-                      </div>
-                      <p className="mt-4 text-xs text-muted">
-                        {recipe.items.join(" · ")}
-                      </p>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          applyRecipe(
-                            recipe.items,
-                            `Recept ${recipe.name} je v tvém dni. Uprav si ho podle sebe.`,
-                          )
-                        }
-                        className="mt-4 inline-flex min-h-10 items-center gap-2 border border-forest px-3 py-2 text-sm font-semibold text-forest transition hover:bg-mist"
-                      >
-                        <Utensils aria-hidden size={15} />
-                        Přidat recept do dne
-                      </button>
-                    </div>
-                  </article>
-                ))}
-              </div>
             </div>
             <div className="mt-8 border border-sand bg-mist px-5 py-5 sm:px-6">
               <div className="flex gap-3">

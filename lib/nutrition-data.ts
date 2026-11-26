@@ -1,4 +1,4 @@
-export type NutritionCategory = "Bílkoviny" | "Vláknina" | "Tuky" | "Sacharidy" | "Maso a ryby";
+export type NutritionCategory = "Bílkoviny" | "Vláknina" | "Tuky" | "Sacharidy";
 
 export type NutritionFood = {
   id: string;
@@ -13,16 +13,6 @@ export type NutritionFood = {
   portions: string;
   price: "nižší" | "střední" | "vyšší";
   tags: string[];
-};
-
-export type NutritionRecipe = {
-  id: string;
-  name: string;
-  description: string;
-  time: string;
-  tag: string;
-  image: string;
-  items: string[];
 };
 
 export const nutritionFoods: NutritionFood[] = [
@@ -71,7 +61,7 @@ export const nutritionFoods: NutritionFood[] = [
   {
     id: "losos",
     name: "Losos",
-    category: "Maso a ryby",
+    category: "Bílkoviny",
     image: "/food-salmon.png",
     summary: "Výrazná potravina pro jídla, kde chceš spojit bílkoviny, chuť a kvalitní tuky.",
     benefits: ["bílkoviny a omega-3 mastné kyseliny", "vitamin D a B12", "snadná příprava v troubě nebo na pánvi"],
@@ -95,36 +85,6 @@ export const nutritionFoods: NutritionFood[] = [
     portions: "1/2 avokáda",
     price: "střední",
     tags: ["tuky", "vláknina", "bez vaření"],
-  },
-];
-
-export const nutritionRecipes: NutritionRecipe[] = [
-  {
-    id: "ovesna-miska",
-    name: "Ovesná miska s ovocem",
-    description: "Rychlá snídaně, která spojí sacharidy, vlákninu a trochu bílkovin.",
-    time: "10 min",
-    tag: "snídaně",
-    image: "/food-oats.png",
-    items: ["Ovesné vločky", "Vejce"],
-  },
-  {
-    id: "cockova-miska",
-    name: "Čočková miska se zeleninou",
-    description: "Syté rostlinné jídlo do běžného týdne, které drží rozpočet i energii.",
-    time: "30 min",
-    tag: "rozpočet",
-    image: "/food-lentils.png",
-    items: ["Čočka", "Ovesné vločky"],
-  },
-  {
-    id: "lososovy-talir",
-    name: "Lososový talíř",
-    description: "Jednoduché hlavní jídlo s rybou, přílohou a zeleninou.",
-    time: "25 min",
-    tag: "hlavní jídlo",
-    image: "/food-salmon.png",
-    items: ["Losos", "Čočka"],
   },
 ];
 
