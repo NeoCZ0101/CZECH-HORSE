@@ -6,7 +6,11 @@ export const metadata: Metadata = { title: "Eggs, cheese and deli meats | Vlastn
 const sections = [
   {
     title: "Eggs",
-    text: "Slice a hard-boiled egg over bread with chives. For a warm lunch, fold leftover roast vegetables into an omelette."
+    nutrition: {
+      id: "eggs",
+      image: "/guide-raw-egg.webp",
+      alt: "A whole hen’s egg in its shell beside a raw egg white and yolk.",
+    },
   },
   {
     title: "Cheese",

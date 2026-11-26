@@ -6,7 +6,11 @@ export const metadata: Metadata = { title: "Vejce, sýry a uzeniny | Vlastní sm
 const sections = [
   {
     title: "Vejce",
-    text: "Vejce natvrdo nakrájej na chléb s pažitkou. Pokud ti zbyla pečená zelenina, prohřej ji na pánvi a zalij rozšlehanými vejci na omeletu."
+    nutrition: {
+      id: "vejce",
+      image: "/guide-raw-egg.webp",
+      alt: "Celé slepičí vejce ve skořápce a vedle něj syrový bílek se žloutkem.",
+    },
   },
   {
     title: "Sýry",
