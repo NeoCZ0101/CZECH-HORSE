@@ -33,6 +33,12 @@ export function Header() {
     "/en/stravovani": "/stravovani",
     "/stravovani/prilohy": "/en/stravovani/side-dishes",
     "/en/stravovani/side-dishes": "/stravovani/prilohy",
+    "/stravovani/zelenina-a-houby": "/en/stravovani/vegetables-and-mushrooms",
+    "/en/stravovani/vegetables-and-mushrooms": "/stravovani/zelenina-a-houby",
+    "/stravovani/bylinky-a-koreni": "/en/stravovani/herbs-and-spices",
+    "/en/stravovani/herbs-and-spices": "/stravovani/bylinky-a-koreni",
+    "/stravovani/napoje": "/en/stravovani/drinks",
+    "/en/stravovani/drinks": "/stravovani/napoje",
     "/stravovani/omacky": "/en/stravovani/sauces",
     "/en/stravovani/sauces": "/stravovani/omacky",
   };

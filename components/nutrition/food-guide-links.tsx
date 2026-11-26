@@ -17,6 +17,21 @@ const guides = [
     cs: { href: "/stravovani/prilohy", title: "Přílohy", summary: "Brambory, rýže, těstoviny, obiloviny, luštěniny a knedlíky." },
     en: { href: "/en/stravovani/side-dishes", title: "Side dishes", summary: "Potatoes, rice, pasta, grains, pulses and dumplings." },
   },
+  {
+    image: "/vegetables-mushrooms.webp",
+    cs: { href: "/stravovani/zelenina-a-houby", title: "Zelenina a houby", summary: "Mrkev, brokolice, paprika, žampiony a hlíva." },
+    en: { href: "/en/stravovani/vegetables-and-mushrooms", title: "Vegetables and mushrooms", summary: "Carrots, broccoli, peppers, button and oyster mushrooms." },
+  },
+  {
+    image: "/herbs-spices.webp",
+    cs: { href: "/stravovani/bylinky-a-koreni", title: "Bylinky a koření", summary: "Bazalka, kopr, kmín, paprika a pepř." },
+    en: { href: "/en/stravovani/herbs-and-spices", title: "Herbs and spices", summary: "Basil, dill, caraway, paprika and pepper." },
+  },
+  {
+    image: "/drinks.webp",
+    cs: { href: "/stravovani/napoje", title: "Nápoje", summary: "Voda, čaj a káva ke každodennímu jídlu." },
+    en: { href: "/en/stravovani/drinks", title: "Drinks", summary: "Water, tea and coffee for everyday meals." },
+  },
 ];
 
 export function FoodGuideLinks({ language }: { language: "cs" | "en" }) {
