@@ -9,8 +9,6 @@ import { MobileNavigation } from "@/components/mobile-navigation";
 
 const czechNavItems = [
   { href: "/stravovani", label: "Stravování" },
-  { href: "/odbornici", label: "Odborníci" },
-  { href: "/pro-odborniky", label: "Pro odborníky" },
   { href: "/o-platforme", label: "O platformě" },
 ];
 
@@ -20,7 +18,6 @@ const englishNavItems = [
   { href: "#david-journey", label: "First journey" },
   { href: "#how-it-works", label: "How it works" },
   { href: "#current-focus", label: "Current focus" },
-  { href: "#for-experts", label: "For experts" },
   { href: "#platform-boundaries", label: "About" },
 ];
 

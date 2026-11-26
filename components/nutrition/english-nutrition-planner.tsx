@@ -1,20 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { RecipeKitchen } from "./recipe-kitchen";
-import { NutrientValues } from "./nutrient-values";
 import { FoodGuideLinks } from "./food-guide-links";
 import {
   ArrowRight,
   Bot,
-  Check,
-  CircleAlert,
-  Globe2,
-  Plus,
-  Sparkles,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 type EnglishFood = {
   id: string;
@@ -127,33 +120,15 @@ const foods: EnglishFood[] = [
     tags: ["fats", "fibre", "no cooking"],
   },
 ];
-const categories = [
-  "All",
-  "Protein",
-  "Fibre",
-  "Fats",
-  "Carbohydrates",
-];
 const meals: PlanItem["meal"][] = ["Breakfast", "Lunch", "Dinner"];
 
 export function EnglishNutritionPlanner() {
-  const [filter, setFilter] = useState("All");
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [plan, setPlan] = useState<PlanItem[]>([
     { foodId: "oats", meal: "Breakfast" },
   ]);
   const [notice, setNotice] = useState(
     "Add food you want to try during the day.",
   );
-  const visibleFoods = useMemo(
-    () =>
-      filter === "All"
-        ? foods
-        : foods.filter((food) => food.category === filter),
-    [filter],
-  );
-  const selectedFood = foods.find((food) => food.id === selectedId);
-
   function toggle(foodId: string) {
     setPlan((current) =>
       current.some((item) => item.foodId === foodId)
@@ -181,92 +156,10 @@ export function EnglishNutritionPlanner() {
       <RecipeKitchen language="en" isAdded={id => plan.some(entry => entry.foodId === id)} onAdd={(item) => {
         if (!plan.some(entry => entry.foodId === item)) toggle(item);
       }} />
-      <section id="catalogue" className="py-16 sm:py-20">
+      <section className="py-12 sm:py-16">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:px-8">
           <div>
-            <div className="flex flex-col gap-5 border-b border-sand pb-6 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <h2 className="mt-2 font-display text-3xl font-semibold text-ink sm:text-4xl">
-                  Ingredient nutrition facts
-                </h2>
-              </div>
-              <p className="max-w-xs text-sm leading-6 text-muted">
-                Values per 100 g of edible ingredient, not per finished meal.
-              </p>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {categories.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => setFilter(item)}
-                  aria-pressed={filter === item}
-                  className={`min-h-10 border px-3 py-2 text-sm font-medium transition ${filter === item ? "border-forest bg-forest text-cream" : "border-sand bg-cream text-muted hover:border-forest/50 hover:text-ink"}`}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-            <div className="mt-7 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              {visibleFoods.map((food) => (
-                <article
-                  key={food.id}
-                  className="group overflow-hidden border border-sand bg-surface"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setSelectedId(food.id)}
-                    className="block w-full text-left"
-                  >
-                    <div className="p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <h3 className="font-display text-xl font-semibold text-ink">
-                            {food.name}
-                          </h3>
-                          <p className="mt-1 text-sm leading-6 text-muted">
-                            {food.summary}
-                          </p>
-                        </div>
-                        <ArrowRight
-                          className="mt-1 shrink-0 text-forest"
-                          aria-hidden
-                          size={18}
-                        />
-                      </div>
-                      <div className="mt-4 flex flex-wrap gap-1.5">
-                        {food.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="border border-sand px-2 py-1 text-[11px] text-muted"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </button>
-                  <NutrientValues id={food.id} language="en" />
-                  <div className="border-t border-sand px-4 py-3">
-                    <button
-                      type="button"
-                      onClick={() => toggle(food.id)}
-                      className="inline-flex min-h-9 items-center gap-1.5 text-xs font-semibold text-forest"
-                    >
-                      {plan.some((item) => item.foodId === food.id) ? (
-                        <Check aria-hidden size={15} />
-                      ) : (
-                        <Plus aria-hidden size={15} />
-                      )}
-                      {plan.some((item) => item.foodId === food.id)
-                        ? "In my plan"
-                        : "Add to day"}
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <div className="mt-8 border border-sand bg-mist px-5 py-5">
+            <div className="border border-sand bg-mist px-5 py-5">
               <div className="flex gap-3">
                 <Bot
                   className="mt-0.5 shrink-0 text-petrol"
@@ -313,7 +206,7 @@ export function EnglishNutritionPlanner() {
             <div className="px-5 py-5">
               {plan.length === 0 ? (
                 <p className="border border-dashed border-cream/25 px-4 py-6 text-sm leading-6 text-cream/65">
-                  Nothing here yet. Add a food from the catalogue.
+                  Nothing here yet. Add a main ingredient from a recipe.
                 </p>
               ) : (
                 <div className="grid gap-3">
@@ -379,101 +272,6 @@ export function EnglishNutritionPlanner() {
           </aside>
         </div>
       </section>
-      {selectedFood && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-forest-deep/55 p-0 sm:items-center sm:p-6">
-          <div className="max-h-[92vh] w-full max-w-3xl overflow-y-auto bg-cream shadow-[0_24px_70px_rgba(16,20,19,0.28)]">
-            <div className="grid md:grid-cols-[0.9fr_1.1fr]">
-              <div className="relative min-h-64 bg-mist md:min-h-[34rem]">
-                <Image
-                  src={selectedFood.image}
-                  alt={selectedFood.name}
-                  fill
-                  sizes="(min-width: 768px) 35vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-5 sm:p-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-olive">
-                      {selectedFood.category}
-                    </p>
-                    <h2 className="mt-2 font-display text-3xl font-semibold text-ink">
-                      {selectedFood.name}
-                    </h2>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setSelectedId(null)}
-                    aria-label="Close food detail"
-                    className="grid h-10 w-10 place-items-center border border-sand text-muted"
-                  >
-                    <X aria-hidden size={18} />
-                  </button>
-                </div>
-                <p className="mt-4 text-sm leading-6 text-muted">
-                  {selectedFood.summary}
-                </p>
-                <div className="mt-6 grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.1em] text-olive">
-                      Benefits
-                    </p>
-                    <ul className="mt-3 grid gap-2 text-sm leading-5 text-ink">
-                      {selectedFood.benefits.map((item) => (
-                        <li key={item} className="flex gap-2">
-                          <Check
-                            className="mt-0.5 shrink-0 text-olive"
-                            aria-hidden
-                            size={15}
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-terracotta">
-                      <CircleAlert aria-hidden size={15} /> Watch-outs
-                    </p>
-                    <ul className="mt-3 grid gap-2 text-sm leading-5 text-ink">
-                      {selectedFood.cautions.map((item) => (
-                        <li key={item} className="flex gap-2">
-                          <CircleAlert
-                            className="mt-0.5 shrink-0 text-terracotta"
-                            aria-hidden
-                            size={15}
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                <div className="mt-6 border-y border-sand py-4 text-sm">
-                  <p className="flex gap-2">
-                    <Globe2
-                      className="mt-0.5 shrink-0 text-petrol"
-                      aria-hidden
-                      size={16}
-                    />
-                    <span>
-                      <strong className="font-semibold text-ink">
-                        Origin and growing:
-                      </strong>{" "}
-                      {selectedFood.origin}
-                    </span>
-                  </p>
-                </div>
-                <p className="mt-5 text-xs leading-5 text-muted">
-                  Educational context only. It does not replace individual
-                  medical or nutrition advice.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </main>
   );
 }

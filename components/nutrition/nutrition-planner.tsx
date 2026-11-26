@@ -1,265 +1,31 @@
 "use client";
 
-import Image from "next/image";
 import { RecipeKitchen } from "./recipe-kitchen";
-import { NutrientValues } from "./nutrient-values";
 import { FoodGuideLinks } from "./food-guide-links";
 import {
   ArrowRight,
   Bot,
-  CalendarDays,
-  Check,
-  ChevronRight,
-  CircleAlert,
-  Clock3,
-  Download,
-  Globe2,
-  Heart,
-  Mail,
-  Plus,
   Sparkles,
   Trash2,
   Utensils,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import {
   nutritionFoods,
   nutritionPlans,
-  type NutritionCategory,
-  type NutritionFood,
 } from "@/lib/nutrition-data";
-import { ProgressJournal } from "@/components/nutrition/progress-journal";
 
 type PlannerItem = { foodId: string; meal: "Snídaně" | "Oběd" | "Večeře" };
-const categories: Array<"Vše" | NutritionCategory> = [
-  "Vše",
-  "Bílkoviny",
-  "Vláknina",
-  "Tuky",
-  "Sacharidy",
-];
 const meals: PlannerItem["meal"][] = ["Snídaně", "Oběd", "Večeře"];
 
-function FoodCard({
-  food,
-  selected,
-  onAdd,
-  onOpen,
-}: {
-  food: NutritionFood;
-  selected: boolean;
-  onAdd: () => void;
-  onOpen: () => void;
-}) {
-  return (
-    <article className="group overflow-hidden border border-sand bg-surface transition duration-200 hover:-translate-y-0.5 hover:border-forest/50 hover:shadow-[0_14px_34px_rgba(37,40,33,0.08)]">
-      <button type="button" onClick={onOpen} className="block w-full text-left">
-        <div className="p-4">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <h3 className="font-display text-xl font-semibold text-ink">
-                {food.name}
-              </h3>
-              <p className="mt-1 text-sm leading-6 text-muted">
-                {food.summary}
-              </p>
-            </div>
-            <ChevronRight
-              className="mt-1 shrink-0 text-forest"
-              aria-hidden
-              size={19}
-            />
-          </div>
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {food.tags.map((tag) => (
-              <span
-                key={tag}
-                className="border border-sand px-2 py-1 text-[11px] text-muted"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      </button>
-      <NutrientValues id={food.id} language="cs" />
-      <div className="flex items-center justify-between border-t border-sand px-4 py-3">
-        <span className="text-xs text-muted">Porce: {food.portions}</span>
-        <button
-          type="button"
-          onClick={onAdd}
-          className={`inline-flex min-h-9 items-center gap-1.5 px-3 text-xs font-semibold transition ${selected ? "bg-forest text-cream" : "border border-forest/25 text-forest hover:bg-mist"}`}
-        >
-          {selected ? (
-            <Check aria-hidden size={15} />
-          ) : (
-            <Plus aria-hidden size={15} />
-          )}
-          {selected ? "V plánu" : "Přidat do dne"}
-        </button>
-      </div>
-    </article>
-  );
-}
-
-function DetailPanel({
-  food,
-  onClose,
-  onAdd,
-  selected,
-}: {
-  food: NutritionFood;
-  onClose: () => void;
-  onAdd: () => void;
-  selected: boolean;
-}) {
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center bg-forest-deep/55 p-0 sm:items-center sm:p-6">
-      <div className="max-h-[92vh] w-full max-w-3xl overflow-y-auto bg-cream shadow-[0_24px_70px_rgba(16,20,19,0.28)]">
-        <div className="grid md:grid-cols-[0.9fr_1.1fr]">
-          <div className="relative min-h-64 bg-mist md:min-h-[34rem]">
-            <Image
-              src={food.image}
-              alt={food.name}
-              fill
-              sizes="(min-width: 768px) 35vw, 100vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="p-5 sm:p-7">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-olive">
-                  {food.category}
-                </p>
-                <h2 className="mt-2 font-display text-3xl font-semibold text-ink">
-                  {food.name}
-                </h2>
-              </div>
-              <button
-                type="button"
-                onClick={onClose}
-                aria-label="Zavřít detail"
-                className="grid h-10 w-10 place-items-center border border-sand text-muted transition hover:border-forest hover:text-forest"
-              >
-                <X aria-hidden size={18} />
-              </button>
-            </div>
-            <p className="mt-4 text-sm leading-6 text-muted">{food.summary}</p>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
-              <div>
-                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-olive">
-                  <Heart aria-hidden size={15} /> Co může přinést
-                </p>
-                <ul className="mt-3 grid gap-2 text-sm leading-5 text-ink">
-                  {food.benefits.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <Check
-                        className="mt-0.5 shrink-0 text-olive"
-                        aria-hidden
-                        size={15}
-                      />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-terracotta">
-                  <CircleAlert aria-hidden size={15} /> Na co dát pozor
-                </p>
-                <ul className="mt-3 grid gap-2 text-sm leading-5 text-ink">
-                  {food.cautions.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <CircleAlert
-                        className="mt-0.5 shrink-0 text-terracotta"
-                        aria-hidden
-                        size={15}
-                      />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="mt-6 grid gap-3 border-y border-sand py-4 text-sm sm:grid-cols-2">
-              <p className="flex gap-2">
-                <Globe2
-                  className="mt-0.5 shrink-0 text-petrol"
-                  aria-hidden
-                  size={16}
-                />
-                <span>
-                  <strong className="font-semibold text-ink">
-                    Původ a pěstování:
-                  </strong>{" "}
-                  {food.origin}
-                </span>
-              </p>
-              <p className="flex gap-2">
-                <Clock3
-                  className="mt-0.5 shrink-0 text-petrol"
-                  aria-hidden
-                  size={16}
-                />
-                <span>
-                  <strong className="font-semibold text-ink">
-                    Dostupnost:
-                  </strong>{" "}
-                  {food.season}
-                </span>
-              </p>
-            </div>
-            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-muted">
-                Orientační porce:{" "}
-                <span className="font-semibold text-ink">{food.portions}</span>
-              </p>
-              <button
-                type="button"
-                onClick={onAdd}
-                className="inline-flex min-h-11 items-center gap-2 bg-forest px-4 py-3 text-sm font-semibold text-cream transition hover:bg-forest-deep"
-              >
-                {selected ? (
-                  <Check aria-hidden size={17} />
-                ) : (
-                  <Plus aria-hidden size={17} />
-                )}
-                {selected ? "V plánu" : "Přidat do mého dne"}
-              </button>
-            </div>
-            <p className="mt-5 text-xs leading-5 text-muted">
-              Informace jsou orientační a vzdělávací. Nenahrazují individuální
-              doporučení lékaře nebo nutričního terapeuta.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function NutritionPlanner() {
-  const [category, setCategory] = useState<(typeof categories)[number]>("Vše");
-  const [selectedFoodId, setSelectedFoodId] = useState<string | null>(null);
   const [planner, setPlanner] = useState<PlannerItem[]>([
     { foodId: nutritionFoods[0].id, meal: "Snídaně" },
   ]);
   const [notice, setNotice] = useState(
     "Přidej potraviny, které chceš během dne vyzkoušet.",
   );
-  const selectedFood = nutritionFoods.find(
-    (food) => food.id === selectedFoodId,
-  );
-  const filteredFoods = useMemo(
-    () =>
-      category === "Vše"
-        ? nutritionFoods
-        : nutritionFoods.filter((food) => food.category === category),
-    [category],
-  );
-
   function toggleFood(foodId: string) {
     setPlanner((current) =>
       current.some((item) => item.foodId === foodId)
@@ -304,44 +70,10 @@ export function NutritionPlanner() {
         const food = nutritionFoods.find(entry => entry.name === item);
         if (food && !planner.some(entry => entry.foodId === food.id)) toggleFood(food.id);
       }} />
-      <section id="katalog" className="py-16 sm:py-20">
+      <section className="py-12 sm:py-16">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-1 lg:px-8">
           <div>
-            <div className="flex flex-col gap-5 border-b border-sand pb-6 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <h2 className="mt-2 font-display text-3xl font-semibold text-ink sm:text-4xl">
-                  Nutriční hodnoty surovin
-                </h2>
-              </div>
-              <p className="max-w-xs text-sm leading-6 text-muted">
-                Hodnoty na 100 g jedlé části suroviny, ne na hotovou porci jídla.
-              </p>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {categories.map((item) => (
-                <button
-                  key={item}
-                  type="button"
-                  onClick={() => setCategory(item)}
-                  aria-pressed={category === item}
-                  className={`min-h-10 border px-3 py-2 text-sm font-medium transition ${category === item ? "border-forest bg-forest text-cream" : "border-sand bg-cream text-muted hover:border-forest/50 hover:text-ink"}`}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
-            <div className="mt-7 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              {filteredFoods.map((food) => (
-                <FoodCard
-                  key={food.id}
-                  food={food}
-                  selected={planner.some((item) => item.foodId === food.id)}
-                  onAdd={() => toggleFood(food.id)}
-                  onOpen={() => setSelectedFoodId(food.id)}
-                />
-              ))}
-            </div>
-            <div className="mt-8 border border-sand bg-mist px-5 py-5 sm:px-6">
+            <div className="border border-sand bg-mist px-5 py-5 sm:px-6">
               <div className="flex gap-3">
                 <Bot
                   className="mt-0.5 shrink-0 text-petrol"
@@ -396,7 +128,7 @@ export function NutritionPlanner() {
             <div className="px-5 py-5">
               {planner.length === 0 ? (
                 <div className="border border-dashed border-cream/25 px-4 py-6 text-sm leading-6 text-cream/65">
-                  Zatím tu nic není. Přidej potravinu z katalogu.
+                  Zatím tu nic není. Přidej hlavní surovinu z receptu.
                 </div>
               ) : (
                 <div className="grid gap-3">
@@ -474,17 +206,6 @@ export function NutritionPlanner() {
           </aside>
         </div>
       </section>
-
-      <ProgressJournal />
-
-      {selectedFood && (
-        <DetailPanel
-          food={selectedFood}
-          selected={planner.some((item) => item.foodId === selectedFood.id)}
-          onClose={() => setSelectedFoodId(null)}
-          onAdd={() => toggleFood(selectedFood.id)}
-        />
-      )}
     </main>
   );
 }

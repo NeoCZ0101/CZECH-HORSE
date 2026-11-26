@@ -15,7 +15,7 @@ const czechColumns = [
   {
     title: "Podpora",
     links: [
-      { href: "/odbornici", label: "Odborníci a služby" },
+      { href: "/odbornici", label: "Odborníci" },
       { href: "/pro-odborniky", label: "Pro odborníky" },
     ],
   },
@@ -35,7 +35,8 @@ const englishColumns = [
     title: "Support",
     links: [
       { href: "#start-here", label: "Start with your situation" },
-      { href: "#for-experts", label: "For experts" },
+      { href: "/odbornici", label: "Experts (Czech)" },
+      { href: "/pro-odborniky", label: "For experts (Czech)" },
       { href: "#platform-boundaries", label: "Platform boundaries" },
     ],
   },
