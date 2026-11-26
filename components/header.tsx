@@ -29,6 +29,12 @@ export function Header() {
   const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
   const navItems = isEnglish ? englishNavItems : czechNavItems;
   const translations: Record<string, string> = {
+    "/stravovani/maso-a-ryby": "/en/stravovani/meat-and-fish",
+    "/en/stravovani/meat-and-fish": "/stravovani/maso-a-ryby",
+    "/stravovani/omacky-a-dochuceni": "/en/stravovani/sauces-and-seasoning",
+    "/en/stravovani/sauces-and-seasoning": "/stravovani/omacky-a-dochuceni",
+    "/stravovani/vejce-syry-a-uzeniny": "/en/stravovani/eggs-cheese-and-deli-meats",
+    "/en/stravovani/eggs-cheese-and-deli-meats": "/stravovani/vejce-syry-a-uzeniny",
     "/stravovani": "/en/stravovani",
     "/en/stravovani": "/stravovani",
     "/stravovani/prilohy": "/en/stravovani/side-dishes",
