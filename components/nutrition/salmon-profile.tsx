@@ -33,7 +33,7 @@ export function SalmonProfile({ language }: { language: "cs" | "en" }) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 className="font-display text-3xl font-semibold text-ink">{t.title}</h2>
         <p className="mt-1 italic text-muted">Salmo salar</p>
-        <a href={language === "cs" ? "#recept-losos" : "#salmon-recipe"} className="mt-3 inline-block text-sm font-semibold text-forest underline underline-offset-4">{language === "cs" ? "Recept: pečený losos s bramborami" : "Recipe: roast salmon with potatoes"}</a>
+        <a href={language === "cs" ? "/stravovani#recept-losos" : "/en/stravovani#salmon-recipe"} className="mt-3 inline-block text-sm font-semibold text-forest underline underline-offset-4">{language === "cs" ? "Recept: pečený losos s bramborami" : "Recipe: roast salmon with potatoes"}</a>
         <div className="mt-6 grid items-start gap-8 md:grid-cols-[minmax(15rem,0.7fr)_1fr]">
           <div>
             <Image src="/guide-salmon.webp" width={660} height={440} sizes="(min-width: 768px) 32vw, 92vw" alt={t.alt} className="h-auto w-full max-w-sm" />

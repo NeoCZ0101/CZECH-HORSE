@@ -1,6 +1,6 @@
 import { PoultryLinks, PoultryGuide } from "./poultry-guide";
 import Image from "next/image";
-import { SalmonRecipe } from "./salmon-recipe";
+import { LegacyRecipeRedirect } from "./legacy-recipe-redirect";
 import { RawMeatGallery } from "./raw-meat-gallery";
 import { SalmonProfile } from "./salmon-profile";
 import Link from "next/link";
@@ -90,7 +90,7 @@ export function MeatAndFishGuide({ language }: { language: GuideLanguage }) {
       </section>
       <PoultryGuide language={language} />
       <SalmonProfile language={language} />
-      <SalmonRecipe language={language} />
+      <LegacyRecipeRedirect language={language} />
       <section className="border-t border-sand bg-mist py-12"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"><div><p className="text-sm font-semibold text-terracotta">{content.noteTitle}</p><p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{content.note}</p></div><Link href={homeHref} className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta">{content.related}<ArrowLeft className="rotate-180" aria-hidden size={16} /></Link></div></section>
     </main>
   );

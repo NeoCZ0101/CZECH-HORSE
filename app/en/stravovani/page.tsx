@@ -1,4 +1,4 @@
-import { SalmonRecipeLink } from "@/components/nutrition/salmon-recipe";
+import { RecipeCollection } from "@/components/nutrition/recipe-collection";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -17,7 +17,7 @@ export default function EnglishNutritionPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FoodGuideLinks language="en" />
         </div>
-        <SalmonRecipeLink language="en" />
+        <RecipeCollection language="en" />
       </main>
     </>
   );
