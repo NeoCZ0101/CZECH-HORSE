@@ -1,5 +1,6 @@
 "use client";
 
+import { MindNotes } from "./mind-notes";
 import { HomeHero } from "./home-hero";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -277,10 +278,7 @@ function EnglishMap() {
               <div id="map-body" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-olive pl-4"><p className="text-lg font-semibold text-forest-deep">BODY</p><p className="mt-1 text-sm leading-5 text-muted">How I look and how I physically function.</p></div>
               <div className="mt-5 grid gap-3">{bodyAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={setActiveArea} />)}</div>
             </div>
-            <div>
-              <div id="map-mind" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-petrol pl-4"><p className="text-lg font-semibold text-forest-deep">MIND</p><p className="mt-1 text-sm leading-5 text-muted">How I feel, think and show up around other people.</p></div>
-              <div className="mt-5 grid gap-3">{mindAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={setActiveArea} />)}</div>
-            </div>
+            <MindNotes language="en" />
             <div>
               <div id="map-finance" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-terracotta pl-4"><p className="text-lg font-semibold text-forest-deep">FINANCE</p><p className="mt-1 text-sm leading-5 text-muted">How I stay clear, earn and choose what to build towards.</p></div>
               <div className="mt-5 grid gap-3">{financeAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={setActiveArea} />)}</div>
@@ -302,7 +300,7 @@ function EnglishMap() {
         </div>
 
         <div className="mt-10 grid gap-10 lg:hidden">
-          {[{ title: "BODY", description: "How I look and how I physically function.", areas: bodyAreas, tone: "olive" }, { title: "MIND", description: "How I feel, think and show up around other people.", areas: mindAreas, tone: "petrol" }, { title: "FINANCE", description: "How I stay clear, earn and choose what to build towards.", areas: financeAreas, tone: "terracotta" }].map((group) => (
+          {[{ title: "BODY", description: "How I look and how I physically function.", areas: bodyAreas, tone: "olive" }, { title: "MIND", description: "How I feel, think and show up around other people.", areas: mindAreas, tone: "petrol" }, { title: "FINANCE", description: "How I stay clear, earn and choose what to build towards.", areas: financeAreas, tone: "terracotta" }].map((group) => group.title === "MIND" ? <MindNotes key={group.title} language="en" mobile /> : (
             <div key={group.title} id={`map-${group.title.toLowerCase()}-mobile`} className="scroll-mt-24">
               <p className={`text-sm font-semibold text-${group.tone}`}>{group.title}</p>
               <p className="mt-1 text-sm leading-6 text-muted">{group.description}</p>

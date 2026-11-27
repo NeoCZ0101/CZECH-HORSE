@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { poultry } from "@/lib/poultry-data";
+import { boiledEggs } from "@/lib/boiled-eggs";
 import { salmonRecipe } from "@/lib/salmon-recipe";
 
 export function RecipeCollection({ language }: { language: "cs" | "en" }) {
@@ -8,6 +9,7 @@ export function RecipeCollection({ language }: { language: "cs" | "en" }) {
   const listId = cs ? "recepty" : "recipes";
   const salmon = salmonRecipe[language];
   const recipes = [
+    { ...boiledEggs[language], image: "/food-eggs.png", isPoultry: false },
     {
       ...salmon, image: "/food-salmon.png", href: salmon.guide + "#" + salmon.profile,
       ingredient: cs ? "Losos atlantský" : "Atlantic salmon", isPoultry: false,

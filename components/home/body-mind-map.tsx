@@ -23,7 +23,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { financeAreas, type FinanceArea } from "@/lib/finance-data";
-import { bodyAreas, mindAreas, type HomeArea } from "@/lib/homepage-data";
+import { MindNotes } from "./mind-notes";
+import { bodyAreas, type HomeArea } from "@/lib/homepage-data";
 
 type MapArea = HomeArea | FinanceArea;
 
@@ -200,15 +201,7 @@ export function BodyMindMap() {
               </div>
             </div>
 
-            <div>
-              <div id="map-mind" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-amber pl-4">
-                <p className="text-lg font-semibold text-forest-deep">PSYCHIKA</p>
-                <p className="mt-1 text-sm leading-5 text-muted">Jak se cítím, přemýšlím a funguju mezi lidmi.</p>
-              </div>
-              <div className="mt-5 grid gap-3">
-                {mindAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={(selectedArea) => setActiveArea(selectedArea)} />)}
-              </div>
-            </div>
+            <MindNotes language="cs" />
 
             <div>
               <div id="map-finance" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-petrol pl-4">
@@ -225,7 +218,7 @@ export function BodyMindMap() {
 
         <div className="mt-10 grid gap-10 lg:hidden">
           <MobileAreaList title="TĚLO" description="Jak vypadám a jak fyzicky funguju." areas={bodyAreas} isMind={false} />
-          <MobileAreaList title="PSYCHIKA" description="Jak se cítím, přemýšlím a funguju mezi lidmi." areas={mindAreas} isMind />
+          <MindNotes language="cs" mobile />
           <MobileFinanceList />
         </div>
       </div>

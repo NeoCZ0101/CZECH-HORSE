@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowRight, BookOpen, Sparkles, Leaf, WalletCards } from "lucide-react";
-import { MindNotes } from "./mind-notes";
 import { FinanceCalculator } from "./finance-calculator";
 
 type Language = "cs" | "en";
@@ -63,7 +62,7 @@ export function HomeHero({ language = "cs" }: { language?: Language }) {
                   {body ? <>
                     <div className="relative"><Image src="/hero-body-movement.png" alt={t.movement} fill priority sizes="(min-width:1024px) 16vw, (min-width:640px) 24vw, 48vw" className="object-cover object-[50%_35%]" /></div>
                     <div className="relative"><Image src="/hero-grooming.png" alt={t.grooming} fill sizes="(min-width:1024px) 16vw, (min-width:640px) 24vw, 48vw" className="object-cover object-[50%_30%]" /></div>
-                  </> : <MindNotes language={language} />}
+                  </> : <Image src="/hero-psychology.png" alt={language === "cs" ? "Muž při rozhovoru." : "A man in conversation."} fill sizes="(min-width:1024px) 32vw, (min-width:640px) 48vw, 95vw" className="object-cover object-[50%_34%]" />}
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-x-3 px-5 py-1 text-sm text-forest sm:px-6">
                   <MapLink pillar={pillar} label={body ? t.bodyTopics : t.mindTopics} />
