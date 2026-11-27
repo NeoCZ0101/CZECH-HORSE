@@ -5,7 +5,7 @@ import { platformName } from "@/lib/data";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: `${platformName} | Tělo a psychika bez zkratek`,
+  title: `${platformName} | Tělo, mysl a finance`,
   description: "Platforma pro muže, kteří chtějí pojmenovat konkrétní problém, zorientovat se v možnostech a později najít vhodnou pomoc.",
 };
 

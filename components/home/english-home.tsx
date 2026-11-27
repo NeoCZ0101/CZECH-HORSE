@@ -1,36 +1,19 @@
 "use client";
 
-import { MindNotes } from "./mind-notes";
-import { HomeHero } from "./home-hero";
+import { BodyMindMap } from "./body-mind-map";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import {
-  Activity,
   ArrowRight,
   BriefcaseBusiness,
-  ChevronDown,
   Circle,
-  CircleDollarSign,
-  CircleDot,
-  CloudLightning,
-  HeartHandshake,
-  Landmark,
   MapPin,
-  MessageCircle,
   MessageSquareText,
-  ReceiptText,
   Route,
-  Scissors,
   Search,
   ShieldCheck,
   SlidersHorizontal,
-  Smile,
-  Sparkles,
-  Target,
   UserRoundCheck,
-  UsersRound,
-  Utensils,
   Waypoints,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/home/scroll-reveal";
@@ -213,116 +196,6 @@ const currentFocus = [
 
 const processIcons = [Search, SlidersHorizontal, UserRoundCheck, Waypoints];
 
-function AreaIcon({ area, size }: { area: Area; size: number }) {
-  const props = { "aria-hidden": true, size };
-
-  if (area.id === "hair-and-beard") return <Scissors {...props} />;
-  if (area.id === "skin-and-care") return <Sparkles {...props} />;
-  if (area.id === "movement-and-fitness") return <Activity {...props} />;
-  if (area.id === "food-and-nutrition") return <Utensils {...props} />;
-  if (area.id === "teeth-and-smile") return <Smile {...props} />;
-  if (area.id === "mental-wellbeing" || area.id === "relationships-and-boundaries") return <HeartHandshake {...props} />;
-  if (area.id === "communication") return <MessageCircle {...props} />;
-  if (area.id === "connection-and-loneliness") return <UsersRound {...props} />;
-  if (area.id === "emotion-and-pressure") return <CloudLightning {...props} />;
-  if (area.id === "budget-and-calculator") return <ReceiptText {...props} />;
-  if (area.id === "home-and-mortgage") return <Landmark {...props} />;
-  if (area.id === "insurance-and-protection") return <ShieldCheck {...props} />;
-  if (area.id === "work-and-income") return <CircleDollarSign {...props} />;
-  if (area.id === "learning-and-growth") return <Target {...props} />;
-  return <CircleDot {...props} />;
-}
-
-function AreaNode({ area, active, onSelect }: { area: Area; active: boolean; onSelect: (area: Area) => void }) {
-  const router = useRouter();
-  const tone = area.pillar === "mind"
-    ? active ? "border-petrol bg-petrol text-cream" : "border-petrol/25 bg-surface text-ink hover:border-petrol hover:bg-petrol/10"
-    : area.pillar === "finance"
-      ? active ? "border-terracotta bg-terracotta text-cream" : "border-terracotta/40 bg-surface text-ink hover:border-terracotta hover:bg-terracotta/10"
-      : active ? "border-olive bg-olive text-cream" : "border-olive/35 bg-surface text-ink hover:border-olive hover:bg-olive/10";
-  const iconTone = active ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-cream/15" : area.pillar === "mind" ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-petrol/10 text-petrol" : area.pillar === "finance" ? "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-terracotta/10 text-terracotta" : "grid h-9 w-9 shrink-0 place-items-center rounded-full bg-olive/15 text-olive";
-
-  return (
-    <button type="button" aria-pressed={active} onClick={() => area.id === "food-and-nutrition" ? router.push("/en/stravovani") : onSelect(area)} onFocus={() => onSelect(area)} onMouseEnter={() => onSelect(area)} className={`flex min-h-[5.4rem] w-full items-center gap-3 rounded-[6px] border p-3 text-left transition duration-200 ${tone}`}>
-      <span className={iconTone}><AreaIcon area={area} size={18} /></span>
-      <span className="min-w-0">
-        <span className="block text-sm font-semibold leading-5">{area.shortTitle}</span>
-        <span className={active ? "mt-1 block text-xs leading-4 text-cream/75" : "mt-1 block text-xs leading-4 text-muted"}>{area.topics.slice(0, 2).join(" · ")}</span>
-      </span>
-    </button>
-  );
-}
-
-function EnglishMap() {
-  const [activeArea, setActiveArea] = useState<Area>(bodyAreas[0]);
-  const isMind = activeArea.pillar === "mind";
-  const isFinance = activeArea.pillar === "finance";
-  const isBridge = activeArea.pillar === "bridge";
-  const label = isFinance ? "Finance" : isBridge ? "Between body and mind" : isMind ? "Mind" : "Body";
-  const iconTone = isFinance || isBridge ? "grid h-12 w-12 place-items-center rounded-full bg-terracotta/10 text-terracotta" : isMind ? "grid h-12 w-12 place-items-center rounded-full bg-petrol/10 text-petrol" : "grid h-12 w-12 place-items-center rounded-full bg-olive/15 text-olive";
-  const labelTone = isFinance || isBridge ? "text-sm font-semibold text-terracotta" : isMind ? "text-sm font-semibold text-petrol" : "text-sm font-semibold text-olive";
-
-  return (
-    <section id="mapa-cloveka" className="bg-cream py-20 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <ScrollReveal>
-          <div className="flex flex-col gap-6 border-b border-sand pb-10 lg:flex-row lg:items-end lg:justify-between">
-            <SectionHeading eyebrow="The whole-person map" title="Start with the area you recognise in yourself." description="Body, mind and money all shape how a person functions each day. Every area offers a starting point and a clearer view of what may be connected." />
-            <p className="max-w-xs text-sm leading-6 text-muted">On desktop, choose an area from one of the three columns. On mobile, the map becomes a clear, expandable list.</p>
-          </div>
-        </ScrollReveal>
-
-        <div className="mt-10 hidden lg:block">
-          <div className="grid items-start gap-5 lg:grid-cols-3 xl:gap-6">
-            <div>
-              <div id="map-body" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-olive pl-4"><p className="text-lg font-semibold text-forest-deep">BODY</p><p className="mt-1 text-sm leading-5 text-muted">How I look and how I physically function.</p></div>
-              <div className="mt-5 grid gap-3">{bodyAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={setActiveArea} />)}</div>
-            </div>
-            <MindNotes language="en" />
-            <div>
-              <div id="map-finance" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-terracotta pl-4"><p className="text-lg font-semibold text-forest-deep">FINANCE</p><p className="mt-1 text-sm leading-5 text-muted">How I stay clear, earn and choose what to build towards.</p></div>
-              <div className="mt-5 grid gap-3">{financeAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={setActiveArea} />)}</div>
-            </div>
-          </div>
-
-          <div className="mt-8 grid gap-6 rounded-[8px] border border-sand bg-surface p-6 md:grid-cols-[auto_1fr] md:items-start">
-            <span className={iconTone}><AreaIcon area={activeArea} size={22} /></span>
-            <div aria-live="polite">
-              <p className={labelTone}>{label}</p>
-              <h3 className="mt-1 font-display text-2xl font-semibold text-ink">{activeArea.title}</h3>
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">{activeArea.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">{activeArea.topics.map((topic) => <span key={topic} className="border border-sand bg-cream px-2.5 py-1 text-xs text-ink">{topic}</span>)}</div>
-              <Link href={activeArea.id === "food-and-nutrition" ? "/en/stravovani" : isFinance ? "#finance-kalkulacka" : "#start-here"} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta">
-                {activeArea.id === "food-and-nutrition" ? "Open the food planner" : isFinance ? "Open the financial overview" : "Describe your situation"}<ArrowRight aria-hidden size={16} />
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-10 grid gap-10 lg:hidden">
-          {[{ title: "BODY", description: "How I look and how I physically function.", areas: bodyAreas, tone: "olive" }, { title: "MIND", description: "How I feel, think and show up around other people.", areas: mindAreas, tone: "petrol" }, { title: "FINANCE", description: "How I stay clear, earn and choose what to build towards.", areas: financeAreas, tone: "terracotta" }].map((group) => group.title === "MIND" ? <MindNotes key={group.title} language="en" mobile /> : (
-            <div key={group.title} id={`map-${group.title.toLowerCase()}-mobile`} className="scroll-mt-24">
-              <p className={`text-sm font-semibold text-${group.tone}`}>{group.title}</p>
-              <p className="mt-1 text-sm leading-6 text-muted">{group.description}</p>
-              <div className="mt-4 border-y border-sand">
-                {group.areas.map((area) => (
-                  <details key={area.id} className="group border-b border-sand last:border-b-0">
-                    <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-3 py-3 text-left marker:content-none">
-                      <span className="flex min-w-0 items-center gap-3"><span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-surface text-forest"><AreaIcon area={area} size={18} /></span><span className="text-sm font-semibold text-ink">{area.title}</span></span>
-                      <ChevronDown className="shrink-0 text-muted transition duration-200 group-open:rotate-180" aria-hidden size={18} />
-                    </summary>
-                    <div className="pb-5 pl-12"><p className="text-sm leading-6 text-muted">{area.description}</p><p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-muted">Topics</p><p className="mt-1 text-sm leading-6 text-ink">{area.topics.join(" · ")}</p></div>
-                  </details>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function CurrentFocusEn() {
   function statusClass(status: string) {
     if (status === "In progress") return "border-olive/40 bg-olive/10 text-forest-deep";
@@ -384,9 +257,7 @@ function StartHereEn() {
 export function EnglishHome() {
   return (
     <main>
-      <HomeHero language="en" />
-
-      <EnglishMap />
+      <BodyMindMap language="en" body={bodyAreas} finance={financeAreas} />
 
       <section id="david-journey" className="bg-mist py-20 sm:py-24"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><ScrollReveal><div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(20rem,0.62fr)] lg:items-end"><SectionHeading eyebrow="The first field journey" title="We do not start with theory. We start with real work." description="David is building the first journey. He is working through appearance, physical condition, mental wellbeing and communication. He tries services, speaks to experts and records what genuinely helps, what it costs and who it may be useful for." /><div className="border-l-2 border-terracotta pl-4 text-sm leading-6 text-muted">This is not a universal manual or a claim that one experience is right for everyone. It is the first case from which a useful way to assess services and experts can grow.</div></div></ScrollReveal><ScrollReveal className="mt-12"><div className="flex items-center gap-2 text-sm font-semibold text-forest"><Route aria-hidden size={18} />A working record in progress, not a personal influencer profile.</div><ol className="relative mt-6 grid gap-x-6 gap-y-8 border-t border-forest/20 pt-6 sm:grid-cols-2 xl:grid-cols-6">{firstJourney.map((milestone, index) => <li key={milestone.title} className="relative min-w-0"><span className="absolute -top-[31px] left-0 h-3 w-3 rounded-full border-2 border-mist bg-terracotta" aria-hidden="true" /><p className="text-xs font-semibold tracking-[0.12em] text-terracotta">0{index + 1}</p><h3 className="mt-2 text-base font-semibold text-ink">{milestone.title}</h3><p className="mt-2 text-sm leading-6 text-muted">{milestone.text}</p></li>)}</ol><Link href="#current-focus" className="mt-10 inline-flex min-h-11 items-center gap-2 rounded-[6px] bg-forest px-5 py-3 text-sm font-semibold text-cream transition duration-200 hover:-translate-y-0.5 hover:bg-forest-deep">Follow the first journey<ArrowRight aria-hidden size={17} /></Link></ScrollReveal></div></section>
 
