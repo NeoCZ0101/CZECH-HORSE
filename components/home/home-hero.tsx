@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, BookOpen, Brain, Leaf, WalletCards } from "lucide-react";
+import { ArrowDown, ArrowRight, BookOpen, Sparkles, Leaf, WalletCards } from "lucide-react";
+import { MindNotes } from "./mind-notes";
 import { FinanceCalculator } from "./finance-calculator";
 
 type Language = "cs" | "en";
@@ -9,15 +10,15 @@ type Pillar = "body" | "mind" | "finance";
 const copy = {
   cs: {
     pillars: "Tři pilíře", body: "Tělo", mind: "Psychika", finance: "Finance",
-    bodyLine: "Pohyb. Pleť. Vlasy. Vousy.", mindLine: "Pohoda. Kontakt. Jistota.", financeLine: "Přehled. Rezerva. Klid.",
+    bodyLine: "Pohyb. Pleť. Vlasy. Vousy.", mindLine: "Co mi dělá dobře.", financeLine: "Přehled. Rezerva. Klid.",
     bodyTopics: "Péče o tělo", mindTopics: "Témata psychiky", financeTopics: "Finanční témata", recipes: "Recepty",
-    movement: "Muž si doma protahuje ramena.", grooming: "Detail upravených vlasů a vousů při ranní péči.", talk: "Muž naslouchá při osobním rozhovoru.",
+    movement: "Muž si doma protahuje ramena.", grooming: "Detail upravených vlasů a vousů při ranní péči.",
   },
   en: {
     pillars: "Three pillars", body: "Body", mind: "Mind", finance: "Finance",
-    bodyLine: "Movement. Skin. Hair. Beard.", mindLine: "Calm. Connection. Confidence.", financeLine: "Clarity. Reserve. Calm.",
+    bodyLine: "Movement. Skin. Hair. Beard.", mindLine: "What lifts my mood.", financeLine: "Clarity. Reserve. Calm.",
     bodyTopics: "Body care", mindTopics: "Explore the mind", financeTopics: "Money topics", recipes: "Recipes",
-    movement: "A man stretching his shoulders at home.", grooming: "Groomed hair and beard during a morning routine.", talk: "A man listening during a conversation.",
+    movement: "A man stretching his shoulders at home.", grooming: "Groomed hair and beard during a morning routine.",
   },
 };
 
@@ -48,7 +49,7 @@ export function HomeHero({ language = "cs" }: { language?: Language }) {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {(["body", "mind"] as const).map(pillar => {
             const body = pillar === "body";
-            const Icon = body ? Leaf : Brain;
+            const Icon = body ? Leaf : Sparkles;
             return (
               <section key={pillar} id={`hero-${pillar}`} aria-labelledby={`hero-${pillar}-title`} className={`flex min-w-0 scroll-mt-24 flex-col border-t-4 ${body ? "border-olive bg-mist" : "border-amber bg-[#f4e8c9]"}`}>
                 <header className="px-5 py-5 sm:px-6">
@@ -62,7 +63,7 @@ export function HomeHero({ language = "cs" }: { language?: Language }) {
                   {body ? <>
                     <div className="relative"><Image src="/hero-body-movement.png" alt={t.movement} fill priority sizes="(min-width:1024px) 16vw, (min-width:640px) 24vw, 48vw" className="object-cover object-[50%_35%]" /></div>
                     <div className="relative"><Image src="/hero-grooming.png" alt={t.grooming} fill sizes="(min-width:1024px) 16vw, (min-width:640px) 24vw, 48vw" className="object-cover object-[50%_30%]" /></div>
-                  </> : <Image src="/hero-psychology.png" alt={t.talk} fill sizes="(min-width:1024px) 32vw, (min-width:640px) 48vw, 95vw" className="object-cover object-[50%_34%]" />}
+                  </> : <MindNotes language={language} />}
                 </div>
                 <div className="flex flex-wrap items-center justify-between gap-x-3 px-5 py-1 text-sm text-forest sm:px-6">
                   <MapLink pillar={pillar} label={body ? t.bodyTopics : t.mindTopics} />

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { platformName } from "@/lib/data";
 
@@ -47,8 +48,8 @@ export function Footer() {
   const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
   const columns = isEnglish ? englishColumns : czechColumns;
   const description = isEnglish
-    ? "A practical platform that starts with a real-life situation, then offers context, useful steps, trusted experts and community."
-    : "Prototyp platformy, která začíná konkrétní životní situací a až potom nabízí obsah, praktické kroky, odborníky a komunitu.";
+    ? "I'm building this for myself and sharing what I learn along the way."
+    : "Tvořím pro sebe. Co se cestou naučím, dávám sem i pro tebe.";
   const note = isEnglish
     ? "It does not replace medical, psychological or therapeutic care."
     : "Nenahrazuje psychologickou, psychoterapeutickou ani zdravotní péči.";
@@ -59,7 +60,8 @@ export function Footer() {
         <div>
           <p className="font-display text-xl font-semibold text-cream">{platformName}</p>
           <p className="mt-4 max-w-md text-sm leading-6 text-cream/65">{description}</p>
-          <p className="mt-4 text-sm text-cream/45">{note}</p>
+          <Image unoptimized src="/david-signature.svg" alt="David" width={108} height={44} className="mt-2" />
+          <p className="mt-5 text-xs text-cream/65">{note}</p>
         </div>
 
         {columns.map((column) => (
