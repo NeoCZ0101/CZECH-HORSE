@@ -118,7 +118,7 @@ function MobileAreaList({ title, description, areas, isMind }: { title: string; 
   const tone = isMind ? "text-amber" : "text-olive";
 
   return (
-    <div>
+    <div id={isMind ? "map-mind-mobile" : "map-body-mobile"} className="scroll-mt-24">
       <p className={`text-sm font-semibold ${tone}`}>{title}</p>
       <p className="mt-1 text-sm leading-6 text-muted">{description}</p>
       <div className="mt-4 border-y border-sand">
@@ -151,7 +151,7 @@ function MobileAreaList({ title, description, areas, isMind }: { title: string; 
 
 function MobileFinanceList() {
   return (
-    <div>
+    <div id="map-finance-mobile" className="scroll-mt-24">
       <p className="text-sm font-semibold text-petrol">FINANCE</p>
       <p className="mt-1 text-sm leading-6 text-muted">Jak mám přehled, jak vydělávám a pro co se chci rozhodovat.</p>
       <div className="mt-4 border-y border-sand">
@@ -191,7 +191,7 @@ export function BodyMindMap() {
         <div className="mt-10 hidden lg:block">
           <div className="grid items-start gap-5 xl:gap-6 lg:grid-cols-3">
             <div>
-              <div className="min-h-[4.75rem] border-l-2 border-olive pl-4">
+              <div id="map-body" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-olive pl-4">
                 <p className="text-lg font-semibold text-forest-deep">TĚLO</p>
                 <p className="mt-1 text-sm leading-5 text-muted">Jak vypadám a jak fyzicky funguju.</p>
               </div>
@@ -201,7 +201,7 @@ export function BodyMindMap() {
             </div>
 
             <div>
-              <div className="min-h-[4.75rem] border-l-2 border-amber pl-4">
+              <div id="map-mind" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-amber pl-4">
                 <p className="text-lg font-semibold text-forest-deep">PSYCHIKA</p>
                 <p className="mt-1 text-sm leading-5 text-muted">Jak se cítím, přemýšlím a funguju mezi lidmi.</p>
               </div>
@@ -211,7 +211,7 @@ export function BodyMindMap() {
             </div>
 
             <div>
-              <div className="min-h-[4.75rem] border-l-2 border-petrol pl-4">
+              <div id="map-finance" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-petrol pl-4">
                 <p className="text-lg font-semibold text-forest-deep">FINANCE</p>
                 <p className="mt-1 text-sm leading-5 text-muted">Jak mám přehled, jak vydělávám a pro co se chci rozhodovat.</p>
               </div>

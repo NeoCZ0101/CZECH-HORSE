@@ -1,16 +1,13 @@
 "use client";
 
-import Image from "next/image";
+import { HomeHero } from "./home-hero";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useMemo, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import {
   Activity,
-  ArrowDownRight,
   ArrowRight,
-  Brain,
   BriefcaseBusiness,
-  Calculator,
   ChevronDown,
   Circle,
   CircleDollarSign,
@@ -30,12 +27,9 @@ import {
   Smile,
   Sparkles,
   Target,
-  TrendingDown,
-  TrendingUp,
   UserRoundCheck,
   UsersRound,
   Utensils,
-  WalletCards,
   Waypoints,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/home/scroll-reveal";
@@ -238,86 +232,6 @@ function AreaIcon({ area, size }: { area: Area; size: number }) {
   return <CircleDot {...props} />;
 }
 
-function parseAmount(value: string) {
-  const normalised = value.replace(/\s/g, "").replace(",", ".").replace(/[^0-9.-]/g, "");
-  return Number.parseFloat(normalised) || 0;
-}
-
-function formatCurrency(value: number) {
-  return new Intl.NumberFormat("en-GB", {
-    style: "currency",
-    currency: "CZK",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-function FinanceCalculatorEn() {
-  const [income, setIncome] = useState("");
-  const [fixedCosts, setFixedCosts] = useState("");
-  const [variableCosts, setVariableCosts] = useState("");
-  const summary = useMemo(() => {
-    const totalIncome = parseAmount(income);
-    const totalCosts = parseAmount(fixedCosts) + parseAmount(variableCosts);
-    const balance = totalIncome - totalCosts;
-    return {
-      balance,
-      balanceShare: totalIncome > 0 ? Math.round((balance / totalIncome) * 100) : 0,
-      hasValues: totalIncome > 0 || totalCosts > 0,
-    };
-  }, [income, fixedCosts, variableCosts]);
-  const positiveBalance = summary.balance >= 0;
-
-  return (
-    <div className="flex flex-1 flex-col px-5 py-5 sm:px-7 sm:py-6">
-      <div className="flex items-center gap-2 text-amber">
-        <Calculator aria-hidden size={18} />
-        <p className="text-xs font-semibold tracking-[0.12em]">MONTHLY OVERVIEW</p>
-      </div>
-      <div className="mt-5 grid gap-3">
-        <label className="grid gap-1.5 text-xs font-semibold text-cream/80">
-          Monthly net income
-          <span className="relative">
-            <input value={income} onChange={(event) => setIncome(event.target.value)} type="text" inputMode="decimal" placeholder="e.g. 38,000" aria-label="Monthly net income in Czech crowns" className="min-h-11 w-full border border-cream/25 bg-cream/10 px-3 pr-12 text-sm font-medium text-cream outline-none transition placeholder:text-cream/45 focus:border-amber focus:bg-cream/15" />
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-cream/60">CZK</span>
-          </span>
-        </label>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <label className="grid gap-1.5 text-xs font-semibold text-cream/80">
-            Fixed costs
-            <span className="relative">
-              <input value={fixedCosts} onChange={(event) => setFixedCosts(event.target.value)} type="text" inputMode="decimal" placeholder="housing, repayments" aria-label="Fixed monthly costs in Czech crowns" className="min-h-11 w-full border border-cream/25 bg-cream/10 px-3 pr-12 text-sm font-medium text-cream outline-none transition placeholder:text-cream/45 focus:border-amber focus:bg-cream/15" />
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-cream/60">CZK</span>
-            </span>
-          </label>
-          <label className="grid gap-1.5 text-xs font-semibold text-cream/80">
-            Everyday spending
-            <span className="relative">
-              <input value={variableCosts} onChange={(event) => setVariableCosts(event.target.value)} type="text" inputMode="decimal" placeholder="food, travel" aria-label="Everyday monthly spending in Czech crowns" className="min-h-11 w-full border border-cream/25 bg-cream/10 px-3 pr-12 text-sm font-medium text-cream outline-none transition placeholder:text-cream/45 focus:border-amber focus:bg-cream/15" />
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-cream/60">CZK</span>
-            </span>
-          </label>
-        </div>
-      </div>
-      <div className="mt-5 border-y border-cream/20 py-4" aria-live="polite">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold tracking-[0.12em] text-amber">REMAINING AFTER COSTS</p>
-            <p className="mt-2 font-display text-3xl font-semibold text-cream">{formatCurrency(summary.balance)}</p>
-          </div>
-          <span className={positiveBalance ? "grid h-10 w-10 place-items-center rounded-full bg-olive/30 text-amber" : "grid h-10 w-10 place-items-center rounded-full bg-terracotta/30 text-cream"}>
-            {positiveBalance ? <TrendingUp aria-hidden size={20} /> : <TrendingDown aria-hidden size={20} />}
-          </span>
-        </div>
-        <p className="mt-2 text-xs leading-5 text-cream/65">{summary.hasValues ? `${summary.balanceShare}% of the income you entered.` : "Enter income and costs for a first, simple overview."}</p>
-      </div>
-      <div className="mt-4 flex items-start gap-2 text-xs leading-5 text-cream/60">
-        <WalletCards className="mt-0.5 shrink-0 text-amber" aria-hidden size={15} />
-        <p>This is not financial or investment advice. It is simply a useful place to begin.</p>
-      </div>
-    </div>
-  );
-}
-
 function AreaNode({ area, active, onSelect }: { area: Area; active: boolean; onSelect: (area: Area) => void }) {
   const router = useRouter();
   const tone = area.pillar === "mind"
@@ -360,15 +274,15 @@ function EnglishMap() {
         <div className="mt-10 hidden lg:block">
           <div className="grid items-start gap-5 lg:grid-cols-3 xl:gap-6">
             <div>
-              <div className="min-h-[4.75rem] border-l-2 border-olive pl-4"><p className="text-lg font-semibold text-forest-deep">BODY</p><p className="mt-1 text-sm leading-5 text-muted">How I look and how I physically function.</p></div>
+              <div id="map-body" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-olive pl-4"><p className="text-lg font-semibold text-forest-deep">BODY</p><p className="mt-1 text-sm leading-5 text-muted">How I look and how I physically function.</p></div>
               <div className="mt-5 grid gap-3">{bodyAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={setActiveArea} />)}</div>
             </div>
             <div>
-              <div className="min-h-[4.75rem] border-l-2 border-petrol pl-4"><p className="text-lg font-semibold text-forest-deep">MIND</p><p className="mt-1 text-sm leading-5 text-muted">How I feel, think and show up around other people.</p></div>
+              <div id="map-mind" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-petrol pl-4"><p className="text-lg font-semibold text-forest-deep">MIND</p><p className="mt-1 text-sm leading-5 text-muted">How I feel, think and show up around other people.</p></div>
               <div className="mt-5 grid gap-3">{mindAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={setActiveArea} />)}</div>
             </div>
             <div>
-              <div className="min-h-[4.75rem] border-l-2 border-terracotta pl-4"><p className="text-lg font-semibold text-forest-deep">FINANCE</p><p className="mt-1 text-sm leading-5 text-muted">How I stay clear, earn and choose what to build towards.</p></div>
+              <div id="map-finance" className="scroll-mt-24 min-h-[4.75rem] border-l-2 border-terracotta pl-4"><p className="text-lg font-semibold text-forest-deep">FINANCE</p><p className="mt-1 text-sm leading-5 text-muted">How I stay clear, earn and choose what to build towards.</p></div>
               <div className="mt-5 grid gap-3">{financeAreas.map((area) => <AreaNode key={area.id} area={area} active={activeArea.id === area.id} onSelect={setActiveArea} />)}</div>
             </div>
           </div>
@@ -389,7 +303,7 @@ function EnglishMap() {
 
         <div className="mt-10 grid gap-10 lg:hidden">
           {[{ title: "BODY", description: "How I look and how I physically function.", areas: bodyAreas, tone: "olive" }, { title: "MIND", description: "How I feel, think and show up around other people.", areas: mindAreas, tone: "petrol" }, { title: "FINANCE", description: "How I stay clear, earn and choose what to build towards.", areas: financeAreas, tone: "terracotta" }].map((group) => (
-            <div key={group.title}>
+            <div key={group.title} id={`map-${group.title.toLowerCase()}-mobile`} className="scroll-mt-24">
               <p className={`text-sm font-semibold text-${group.tone}`}>{group.title}</p>
               <p className="mt-1 text-sm leading-6 text-muted">{group.description}</p>
               <div className="mt-4 border-y border-sand">
@@ -472,18 +386,7 @@ function StartHereEn() {
 export function EnglishHome() {
   return (
     <main>
-      <section className="border-b border-sand bg-surface text-ink">
-        <h1 className="sr-only">Vlastní směr: body, mind and finance</h1>
-        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
-          <div className="mb-5 flex items-center justify-between gap-4 border-b border-sand pb-4 text-xs font-semibold tracking-[0.14em] text-forest sm:mb-7 sm:pb-5"><span>THREE FOUNDATIONS</span><span className="text-muted">Choose where to begin.</span></div>
-          <div className="grid overflow-hidden border border-sand lg:grid-cols-[1.16fr_0.84fr] xl:grid-cols-[1.1fr_0.8fr_0.9fr]">
-            <section className="bg-cream" aria-labelledby="english-body-title"><div className="flex flex-col gap-4 border-b border-sand px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6"><div><p className="text-xs font-semibold tracking-[0.14em] text-olive">BODY</p><h2 id="english-body-title" className="mt-2 font-display text-3xl font-semibold leading-tight text-forest-deep sm:text-4xl">Movement. Skin. Hair. Beard.</h2></div><Link href="#mapa-cloveka" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta">Explore the body<ArrowRight aria-hidden size={17} /></Link></div><div className="grid min-h-[31rem] grid-cols-[1.06fr_0.94fr] sm:min-h-[35rem]"><figure className="relative min-h-[31rem] border-r border-sand sm:min-h-[35rem]"><Image src="/hero-body-movement.png" alt="A man doing calm morning movement and stretching at home." fill priority sizes="(min-width: 1280px) 35vw, (min-width: 1024px) 58vw, 58vw" className="object-cover" /><figcaption className="absolute bottom-0 left-0 right-0 bg-cream/95 px-4 py-3 text-sm font-medium text-ink">Function well in ordinary life.</figcaption></figure><div className="grid min-h-[31rem] grid-rows-[1.1fr_0.9fr] sm:min-h-[35rem]"><figure className="relative min-h-[18rem] border-b border-sand sm:min-h-[21rem]"><Image src="/hero-grooming.png" alt="A man with naturally groomed hair, beard and healthy-looking skin." fill sizes="(min-width: 1280px) 23vw, (min-width: 1024px) 28vw, 42vw" className="object-cover" /></figure><div className="flex min-h-[13rem] flex-col justify-between bg-mist px-4 py-4 sm:min-h-[14rem] sm:px-5 sm:py-5"><div className="flex items-center gap-2 text-olive"><Scissors aria-hidden size={17} /><Sparkles aria-hidden size={17} /></div><p className="mt-5 text-sm leading-6 text-ink">Care that fits your face, hair and the rhythm of your life.</p></div></div></div></section>
-            <section className="flex min-h-[39rem] flex-col bg-forest-deep text-cream sm:min-h-[44rem]" aria-labelledby="english-mind-title"><div className="flex flex-col gap-4 border-b border-cream/20 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6"><div><p className="text-xs font-semibold tracking-[0.14em] text-sage">MIND</p><h2 id="english-mind-title" className="mt-2 font-display text-3xl font-semibold leading-tight sm:text-4xl">Calm. Connection. Confidence.</h2></div><Link href="#mapa-cloveka" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-cream transition hover:text-amber">Explore the mind<ArrowRight aria-hidden size={17} /></Link></div><figure className="relative min-h-[25rem] flex-1 border-b border-cream/20 sm:min-h-[29rem]"><Image src="/hero-psychology.png" alt="A man in a calm, open conversation." fill sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 42vw, 92vw" className="object-cover" /></figure><div className="grid gap-4 px-5 py-5 sm:grid-cols-[auto_1fr] sm:px-7 sm:py-6"><Brain className="text-amber" aria-hidden size={22} /><p className="text-sm leading-6 text-cream/75">Function with more calm around people, in relationships and when life gets too heavy.</p></div></section>
-            <section id="finance-kalkulacka" className="flex min-h-[39rem] flex-col border-t border-sand bg-petrol text-cream sm:min-h-[44rem] lg:col-span-2 xl:col-span-1 xl:border-l xl:border-t-0" aria-labelledby="english-finance-title"><div className="flex flex-col gap-4 border-b border-cream/20 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6"><div><div className="flex items-center gap-2 text-amber"><WalletCards aria-hidden size={17} /><p className="text-xs font-semibold tracking-[0.14em]">FINANCE</p></div><h2 id="english-finance-title" className="mt-2 font-display text-3xl font-semibold leading-tight sm:text-4xl">Clarity. Reserve. Calm.</h2></div><Link href="#mapa-cloveka" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-cream transition hover:text-amber">Explore finance<ArrowRight aria-hidden size={17} /></Link></div><FinanceCalculatorEn /></section>
-          </div>
-          <Link href="#mapa-cloveka" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta sm:mt-7">View the whole map<ArrowDownRight aria-hidden size={18} /></Link>
-        </div>
-      </section>
+      <HomeHero language="en" />
 
       <EnglishMap />
 

@@ -1,114 +1,85 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Brain, Scissors, Sparkles, WalletCards } from "lucide-react";
-import { FinanceCalculator } from "@/components/home/finance-calculator";
+import { ArrowDown, ArrowRight, BookOpen, Brain, Leaf, WalletCards } from "lucide-react";
+import { FinanceCalculator } from "./finance-calculator";
 
-export function HomeHero() {
+type Language = "cs" | "en";
+type Pillar = "body" | "mind" | "finance";
+
+const copy = {
+  cs: {
+    pillars: "Tři pilíře", body: "Tělo", mind: "Psychika", finance: "Finance",
+    bodyLine: "Pohyb. Pleť. Vlasy. Vousy.", mindLine: "Pohoda. Kontakt. Jistota.", financeLine: "Přehled. Rezerva. Klid.",
+    bodyTopics: "Péče o tělo", mindTopics: "Témata psychiky", financeTopics: "Finanční témata", recipes: "Recepty",
+    movement: "Muž si doma protahuje ramena.", grooming: "Detail upravených vlasů a vousů při ranní péči.", talk: "Muž naslouchá při osobním rozhovoru.",
+  },
+  en: {
+    pillars: "Three pillars", body: "Body", mind: "Mind", finance: "Finance",
+    bodyLine: "Movement. Skin. Hair. Beard.", mindLine: "Calm. Connection. Confidence.", financeLine: "Clarity. Reserve. Calm.",
+    bodyTopics: "Body care", mindTopics: "Explore the mind", financeTopics: "Money topics", recipes: "Recipes",
+    movement: "A man stretching his shoulders at home.", grooming: "Groomed hair and beard during a morning routine.", talk: "A man listening during a conversation.",
+  },
+};
+
+function MapLink({ pillar, label }: { pillar: Pillar; label: string }) {
+  const style = "min-h-11 items-center gap-2 font-semibold underline-offset-4 hover:underline";
+  return <>
+    <a href={`#map-${pillar}`} className={`hidden lg:inline-flex ${style}`}>{label}<ArrowRight size={16} aria-hidden /></a>
+    <a href={`#map-${pillar}-mobile`} className={`inline-flex lg:hidden ${style}`}>{label}<ArrowRight size={16} aria-hidden /></a>
+  </>;
+}
+
+export function HomeHero({ language = "cs" }: { language?: Language }) {
+  const t = copy[language];
+  const financeId = "finance-kalkulacka";
   return (
-    <section className="border-b border-sand bg-surface text-ink">
-      <h1 className="sr-only">Vlastní směr: tělo, psychika a finance</h1>
-      <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
-        <div className="mb-5 flex items-center justify-between gap-4 border-b border-sand pb-4 text-xs font-semibold tracking-[0.14em] text-forest sm:mb-7 sm:pb-5">
-          <span>TŘI PILÍŘE</span>
-          <span className="text-muted">Vyber, kde chceš začít.</span>
+    <section aria-labelledby="home-title" className="border-b border-sand bg-surface text-ink">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="mb-5 flex items-baseline gap-4 sm:mb-6">
+          <h1 id="home-title" className="font-display text-4xl font-semibold text-forest-deep sm:text-5xl">Vlastní směr</h1>
+          <span aria-hidden className="h-px flex-1 self-center bg-sand" />
+          <span className="text-sm font-semibold text-muted">{t.pillars}</span>
         </div>
-
-        <div className="grid overflow-hidden border border-sand lg:grid-cols-[1.16fr_0.84fr] xl:grid-cols-[1.1fr_0.8fr_0.9fr]">
-          <section className="bg-cream" aria-labelledby="hero-body-title">
-            <div className="flex flex-col gap-4 border-b border-sand px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6">
-              <div>
-                <p className="text-xs font-semibold tracking-[0.14em] text-olive">TĚLO</p>
-                <h2 id="hero-body-title" className="mt-2 font-display text-3xl font-semibold leading-tight text-forest-deep sm:text-4xl">Pohyb. Pleť. Vlasy. Vousy.</h2>
-              </div>
-              <Link href="#mapa-cloveka" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta">
-                Prozkoumat tělo
-                <ArrowRight aria-hidden size={17} />
-              </Link>
-            </div>
-
-            <div className="grid min-h-[31rem] grid-cols-[1.06fr_0.94fr] sm:min-h-[35rem]">
-              <figure className="relative min-h-[31rem] border-r border-sand sm:min-h-[35rem]">
-                <Image
-                  src="/hero-body-movement.png"
-                  alt="Muž při klidném ranním pohybu a protažení v domácím prostředí."
-                  fill
-                  priority
-                  sizes="(min-width: 1280px) 35vw, (min-width: 1024px) 58vw, 58vw"
-                  className="object-cover"
-                />
-                <figcaption className="absolute bottom-0 left-0 right-0 bg-cream/95 px-4 py-3 text-sm font-medium text-ink">
-                  Zdravě fungovat v běžném dni.
-                </figcaption>
-              </figure>
-
-              <div className="grid min-h-[31rem] grid-rows-[1.1fr_0.9fr] sm:min-h-[35rem]">
-                <figure className="relative min-h-[18rem] border-b border-sand sm:min-h-[21rem]">
-                  <Image
-                    src="/hero-grooming.png"
-                    alt="Muž s přirozeně upravenými vlasy, vousy a zdravě vypadající pletí."
-                    fill
-                    sizes="(min-width: 1280px) 23vw, (min-width: 1024px) 28vw, 42vw"
-                    className="object-cover"
-                  />
-                </figure>
-                <div className="flex min-h-[13rem] flex-col justify-between bg-mist px-4 py-4 sm:min-h-[14rem] sm:px-5 sm:py-5">
-                  <div className="flex items-center gap-2 text-olive">
-                    <Scissors aria-hidden size={17} />
-                    <Sparkles aria-hidden size={17} />
+        <nav aria-label={t.pillars} className="mb-4 flex justify-between gap-2 border-y border-sand sm:hidden">
+          {([["hero-body", t.body], ["hero-mind", t.mind], [financeId, t.finance]] as const).map(([id, label]) => (
+            <a key={id} href={"#" + id} className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-forest">{label}<ArrowDown size={14} aria-hidden /></a>
+          ))}
+        </nav>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {(["body", "mind"] as const).map(pillar => {
+            const body = pillar === "body";
+            const Icon = body ? Leaf : Brain;
+            return (
+              <section key={pillar} id={`hero-${pillar}`} aria-labelledby={`hero-${pillar}-title`} className={`flex min-w-0 scroll-mt-24 flex-col border-t-4 ${body ? "border-olive bg-mist" : "border-amber bg-[#f4e8c9]"}`}>
+                <header className="px-5 py-5 sm:px-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <h2 id={`hero-${pillar}-title`} className="font-display text-3xl font-semibold">{t[pillar]}</h2>
+                    <Icon size={21} aria-hidden className={body ? "text-olive" : "text-[#816428]"} />
                   </div>
-                  <p className="mt-5 text-sm leading-6 text-ink">Péče, která sedí tvému obličeji, vlasům a rytmu života.</p>
+                  <p className="mt-1 text-sm text-forest">{body ? t.bodyLine : t.mindLine}</p>
+                </header>
+                <div className={`relative flex-1 min-h-52 sm:min-h-60 lg:min-h-64 ${body ? "grid grid-cols-[1.05fr_1fr] gap-0.5" : ""}`}>
+                  {body ? <>
+                    <div className="relative"><Image src="/hero-body-movement.png" alt={t.movement} fill priority sizes="(min-width:1024px) 16vw, (min-width:640px) 24vw, 48vw" className="object-cover object-[50%_35%]" /></div>
+                    <div className="relative"><Image src="/hero-grooming.png" alt={t.grooming} fill sizes="(min-width:1024px) 16vw, (min-width:640px) 24vw, 48vw" className="object-cover object-[50%_30%]" /></div>
+                  </> : <Image src="/hero-psychology.png" alt={t.talk} fill sizes="(min-width:1024px) 32vw, (min-width:640px) 48vw, 95vw" className="object-cover object-[50%_34%]" />}
                 </div>
-              </div>
-            </div>
-          </section>
-
-          <section className="flex min-h-[39rem] flex-col bg-amber text-forest-deep sm:min-h-[44rem]" aria-labelledby="hero-mind-title">
-            <div className="flex flex-col gap-4 border-b border-forest/20 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6">
-              <div>
-                <p className="text-xs font-semibold tracking-[0.14em] text-petrol">PSYCHIKA</p>
-                <h2 id="hero-mind-title" className="mt-2 font-display text-3xl font-semibold leading-tight sm:text-4xl">Pohoda. Kontakt. Jistota.</h2>
-              </div>
-              <Link href="#mapa-cloveka" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-forest-deep transition hover:text-petrol">
-                Prozkoumat psychiku
-                <ArrowRight aria-hidden size={17} />
-              </Link>
-            </div>
-
-            <figure className="relative min-h-[25rem] flex-1 border-b border-forest/20 sm:min-h-[29rem]">
-              <Image
-                src="/hero-psychology.png"
-                alt="Muž v klidném otevřeném rozhovoru v příjemném interiéru."
-                fill
-                sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 42vw, 92vw"
-                className="object-cover"
-              />
-            </figure>
-
-            <div className="grid gap-4 px-5 py-5 sm:grid-cols-[auto_1fr] sm:px-7 sm:py-6">
-              <Brain className="text-petrol" aria-hidden size={22} />
-              <p className="text-sm leading-6 text-forest-deep/75">Klidnější fungování mezi lidmi, ve vztazích i ve chvílích, kdy je toho moc.</p>
-            </div>
-          </section>
-
-          <section id="finance-kalkulacka" className="flex min-h-[39rem] flex-col border-t border-sand bg-petrol text-cream sm:min-h-[44rem] lg:col-span-2 xl:col-span-1 xl:border-l xl:border-t-0" aria-labelledby="hero-finance-title">
-            <div className="flex flex-col gap-4 border-b border-cream/20 px-5 py-5 sm:flex-row sm:items-end sm:justify-between sm:px-7 sm:py-6">
-              <div>
-                <div className="flex items-center gap-2 text-amber">
-                  <WalletCards aria-hidden size={17} />
-                  <p className="text-xs font-semibold tracking-[0.14em]">FINANCE</p>
+                <div className="flex flex-wrap items-center justify-between gap-x-3 px-5 py-1 text-sm text-forest sm:px-6">
+                  <MapLink pillar={pillar} label={body ? t.bodyTopics : t.mindTopics} />
+                  {body && <Link href={language === "cs" ? "/stravovani#recepty" : "/en/stravovani#recipes"} className="inline-flex min-h-11 items-center gap-1.5 hover:underline"><BookOpen size={16} aria-hidden />{t.recipes}</Link>}
                 </div>
-                <h2 id="hero-finance-title" className="mt-2 font-display text-3xl font-semibold leading-tight sm:text-4xl">Přehled. Rezerva. Klid.</h2>
-              </div>
-              <Link href="#mapa-cloveka" className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-cream transition hover:text-amber">
-                Prozkoumat finance
-                <ArrowRight aria-hidden size={17} />
-              </Link>
-            </div>
-
-            <FinanceCalculator />
+              </section>
+            );
+          })}
+          <section id={financeId} aria-labelledby="hero-finance-title" className="flex min-w-0 scroll-mt-24 flex-col border-t-4 border-petrol bg-petrol text-cream sm:col-span-2 lg:col-span-1">
+            <header className="px-5 py-5 sm:px-6">
+              <div className="flex items-center justify-between gap-3"><h2 id="hero-finance-title" className="font-display text-3xl font-semibold">{t.finance}</h2><WalletCards size={21} aria-hidden /></div>
+              <p className="mt-1 text-sm">{t.financeLine}</p>
+            </header>
+            <FinanceCalculator language={language} />
+            <div className="border-t border-white/20 px-5 py-1 text-sm sm:px-6"><MapLink pillar="finance" label={t.financeTopics} /></div>
           </section>
         </div>
-
       </div>
     </section>
   );
