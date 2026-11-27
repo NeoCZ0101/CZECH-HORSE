@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Activity, ArrowRight, BookOpen, ChevronDown, Pause, Play, CircleDollarSign, Landmark, ReceiptText, Scissors, ShieldCheck, Smile, Sparkles, Target, Utensils } from "lucide-react";
 import { bodyAreas } from "@/lib/homepage-data";
 import { financeAreas } from "@/lib/finance-data";
@@ -15,11 +15,13 @@ type Area = { id: string; shortTitle: string; description: string; topics: strin
 type Language = "cs" | "en";
 type Pillar = "body" | "mind" | "finance";
 
-const pillarImages: Record<Pillar, readonly [string, string]> = {
-  body: ["/pillar-body-care.webp", "/pillar-body-breakfast.webp"],
+const pillarImages: Record<Pillar, readonly string[]> = {
+  body: ["/pillar-body-care.webp", "/pillar-body.webp"],
   mind: ["/pillar-mind-vinyl.webp", "/pillar-mind.webp"],
-  finance: ["/pillar-finance-reserves.webp", "/pillar-finance.webp"],
+  finance: ["/pillar-finance.webp"],
 };
+
+const imageCount = new Set(Object.values(pillarImages).flat()).size;
 
 const headings = {
   cs: { body: ["Tělo", "Pohyb a každodenní péče."], mind: ["Mysl", "Co mi dělá dobře."], finance: ["Finance", "Přehled. Rezerva. Klid."] },
@@ -34,17 +36,18 @@ const areaIcons = {
   "prace-a-prijem": CircleDollarSign, "work-and-income": CircleDollarSign, "vzdelavani-a-rozvoj": Target, "learning-and-growth": Target,
 };
 
-function PillarHeading({ pillar, language, onReady }: { pillar: Pillar; language: Language; onReady: (id: string) => void }) {
+function PillarHeading({ pillar, language, onReady, children }: { pillar: Pillar; language: Language; onReady: (id: string) => void; children?: ReactNode }) {
   const [title, line] = headings[language][pillar];
   const border = { body: "border-olive", mind: "border-amber", finance: "border-petrol" }[pillar];
   return <header className={`mb-4 flex items-center gap-4 border-b-2 pb-3 md:mb-5 md:block ${border}`}>
-    <div aria-hidden className="relative size-[104px] shrink-0 overflow-hidden md:aspect-square md:h-auto md:w-full">
+    <div className="relative size-[104px] shrink-0 overflow-hidden md:aspect-square md:h-auto md:w-full">
       {pillarImages[pillar].map((src, index) => (
         <Image key={src} src={src}
           width={720} height={720} sizes="(min-width:1280px) 390px, (min-width:768px) 31vw, 104px"
           loading="eager" onLoad={() => onReady(src)} alt=""
           className={index === 0 ? "block size-full object-cover" : art.print} />
       ))}
+      {children}
     </div>
     <div className="min-w-0 md:pt-4">
       <h2 className="font-display text-3xl font-semibold leading-tight text-forest-deep">{title}</h2>
@@ -89,23 +92,22 @@ export function BodyMindMap({ language = "cs", body = bodyAreas, finance = finan
   const loaded = useRef(new Set<string>());
   function markLoaded(id: string) {
     loaded.current.add(id);
-    if (loaded.current.size === 6) setReady(true);
+    if (loaded.current.size === imageCount) setReady(true);
   }
   const motionLabel = paused ? (cs ? "Spustit střídání obrázků" : "Play image rotation") : (cs ? "Pozastavit střídání obrázků" : "Pause image rotation");
   return <section data-art-ready={ready} data-art-paused={paused} id="mapa-cloveka" aria-labelledby="map-title" className="mx-auto max-w-7xl scroll-mt-24 px-4 pb-14 pt-6 sm:px-6 lg:px-8 lg:pt-8">
-    <div className="mb-5 flex items-center justify-between gap-4 sm:mb-7">
-      <h1 id="map-title" className="font-display text-4xl font-semibold text-forest-deep sm:text-5xl">Vlastní směr</h1>
-      <button type="button" onClick={() => setPaused(p => !p)} disabled={!ready} aria-label={motionLabel} title={motionLabel}
-        className="inline-grid size-11 shrink-0 place-items-center rounded-full border border-sand text-forest hover:bg-surface disabled:opacity-50 motion-reduce:hidden">
-        {paused ? <Play size={16} aria-hidden /> : <Pause size={16} aria-hidden />}
-      </button>
-    </div>
+    <h1 id="map-title" className="sr-only">Vlastní směr</h1>
     <nav aria-label={cs ? "Oblasti" : "Areas"} className="mb-5 flex justify-between border-y border-sand md:hidden">
       {(["body", "mind", "finance"] as const).map(p => <a key={p} href={`#map-${p}`} className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-forest">{headings[language][p][0]}<ChevronDown size={14} aria-hidden /></a>)}
     </nav>
     <div className="grid items-start gap-8 md:grid-cols-3 md:gap-4 xl:gap-6">
       {(["body", "mind", "finance"] as const).map(p => <section key={p} id={`map-${p}`} className="min-w-0 scroll-mt-24">
-        <PillarHeading pillar={p} language={language} onReady={markLoaded} />
+        <PillarHeading pillar={p} language={language} onReady={markLoaded}>
+          {p === "body" && <button type="button" onClick={() => setPaused(p => !p)} disabled={!ready} aria-label={motionLabel} title={motionLabel}
+        className="absolute bottom-1 right-1 z-10 inline-grid size-9 md:bottom-2 md:right-2 md:size-11 shrink-0 place-items-center rounded-full border border-sand bg-surface/95 text-forest hover:bg-surface disabled:opacity-50 motion-reduce:hidden">
+        {paused ? <Play size={16} aria-hidden /> : <Pause size={16} aria-hidden />}
+      </button>}
+        </PillarHeading>
         {p === "mind" ? <MindNotes language={language} /> : <TopicList pillar={p} language={language} areas={p === "body" ? body : finance} />}
         {p === "body" && <Link href={cs ? "/stravovani#recepty" : "/en/stravovani#recipes"} className="mt-2 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-forest hover:underline"><BookOpen size={16} aria-hidden />{cs ? "Recepty" : "Recipes"}</Link>}
       </section>)}
