@@ -9,7 +9,7 @@ import { MobileNavigation } from "@/components/mobile-navigation";
 
 const czechNavItems = [
   { href: "/stravovani", label: "Stravování" },
-  { href: "/o-platforme", label: "O platformě" },
+  { href: "/o-mne", label: "O mně" },
 ];
 
 const englishNavItems = [
@@ -18,7 +18,7 @@ const englishNavItems = [
   { href: "#david-journey", label: "First journey" },
   { href: "#how-it-works", label: "How it works" },
   { href: "#current-focus", label: "Current focus" },
-  { href: "#platform-boundaries", label: "About" },
+  { href: "/en/about-me", label: "About me" },
 ];
 
 export function Header() {
@@ -26,6 +26,8 @@ export function Header() {
   const isEnglish = pathname === "/en" || pathname.startsWith("/en/");
   const navItems = isEnglish ? englishNavItems : czechNavItems;
   const translations: Record<string, string> = {
+    "/o-mne": "/en/about-me",
+    "/en/about-me": "/o-mne",
     "/stravovani/maso-a-ryby": "/en/stravovani/meat-and-fish",
     "/en/stravovani/meat-and-fish": "/stravovani/maso-a-ryby",
     "/stravovani/omacky-a-dochuceni": "/en/stravovani/sauces-and-seasoning",
@@ -74,8 +76,8 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              aria-current={item.href === (isEnglish ? "/en/stravovani" : "/stravovani") && pathname === item.href ? "page" : undefined}
-              className={`rounded-full px-3 py-2 text-sm font-medium transition hover:bg-mist hover:text-forest ${item.href === (isEnglish ? "/en/stravovani" : "/stravovani") && pathname === item.href ? "bg-forest text-cream hover:bg-forest-deep hover:text-cream" : "text-muted"}`}
+              aria-current={pathname === item.href ? "page" : undefined}
+              className={`rounded-full px-3 py-2 text-sm font-medium transition hover:bg-mist hover:text-forest ${pathname === item.href ? "bg-forest text-cream hover:bg-forest-deep hover:text-cream" : "text-muted"}`}
             >
               {item.label}
             </Link>
