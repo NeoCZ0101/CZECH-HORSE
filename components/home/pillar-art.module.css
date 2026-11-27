@@ -1,0 +1,43 @@
+.print {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-art-ready="true"] .print {
+    animation: fade 28s ease-in-out infinite;
+  }
+
+  @supports (mask-image: url("/pillar-dissolve.png")) {
+    .print {
+      mask-image: url("/pillar-dissolve.png");
+      mask-size: 100% 3200%;
+      mask-repeat: no-repeat;
+      mask-position: 0 0;
+    }
+
+    [data-art-ready="true"] .print {
+      opacity: 1;
+      animation: dissolve 28s steps(31, end) infinite;
+    }
+  }
+
+  [data-art-ready="true"][data-art-paused="true"] .print {
+    animation-play-state: paused;
+  }
+}
+
+/* Each successive mask frame exposes more of the same fixed grain pattern. */
+@keyframes dissolve {
+  0%, 35%, 100% { mask-position: 0 0%; }
+  50%, 85% { mask-position: 0 100%; }
+}
+
+@keyframes fade {
+  0%, 35%, 100% { opacity: 0; }
+  50%, 85% { opacity: 1; }
+}
