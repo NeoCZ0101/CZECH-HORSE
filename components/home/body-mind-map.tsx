@@ -15,6 +15,12 @@ type Area = { id: string; shortTitle: string; description: string; topics: strin
 type Language = "cs" | "en";
 type Pillar = "body" | "mind" | "finance";
 
+const pillarImages: Record<Pillar, readonly [string, string]> = {
+  body: ["/pillar-body-care.webp", "/pillar-body-breakfast.webp"],
+  mind: ["/pillar-mind-vinyl.webp", "/pillar-mind.webp"],
+  finance: ["/pillar-finance-reserves.webp", "/pillar-finance.webp"],
+};
+
 const headings = {
   cs: { body: ["Tělo", "Pohyb a každodenní péče."], mind: ["Mysl", "Co mi dělá dobře."], finance: ["Finance", "Přehled. Rezerva. Klid."] },
   en: { body: ["Body", "Movement and everyday care."], mind: ["Mind", "What lifts my mood."], finance: ["Finance", "Clarity. Reserve. Calm."] },
@@ -33,11 +39,11 @@ function PillarHeading({ pillar, language, onReady }: { pillar: Pillar; language
   const border = { body: "border-olive", mind: "border-amber", finance: "border-petrol" }[pillar];
   return <header className={`mb-4 flex items-center gap-4 border-b-2 pb-3 md:mb-5 md:block ${border}`}>
     <div aria-hidden className="relative size-[104px] shrink-0 overflow-hidden md:aspect-square md:h-auto md:w-full">
-      {["studio", "print"].map(set => (
-        <Image key={set} src={`/pillar-${pillar}${set === "studio" ? "-studio" : ""}.webp`}
+      {pillarImages[pillar].map((src, index) => (
+        <Image key={src} src={src}
           width={720} height={720} sizes="(min-width:1280px) 390px, (min-width:768px) 31vw, 104px"
-          loading="eager" onLoad={() => onReady(pillar + set)} alt=""
-          className={set === "studio" ? "block size-full object-cover" : art.print} />
+          loading="eager" onLoad={() => onReady(src)} alt=""
+          className={index === 0 ? "block size-full object-cover" : art.print} />
       ))}
     </div>
     <div className="min-w-0 md:pt-4">
