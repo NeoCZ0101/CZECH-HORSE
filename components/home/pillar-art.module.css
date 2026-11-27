@@ -26,9 +26,6 @@
     }
   }
 
-  [data-art-ready="true"][data-art-paused="true"] .print {
-    animation-play-state: paused;
-  }
 }
 
 /* Each successive mask frame exposes more of the same fixed grain pattern. */

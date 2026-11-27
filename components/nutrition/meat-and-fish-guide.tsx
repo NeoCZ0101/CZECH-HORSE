@@ -1,5 +1,6 @@
 import { PoultryLinks, PoultryGuide } from "./poultry-guide";
-import Image from "next/image";
+import { CutMap } from "./cut-map";
+import { MeatProfileLinks, MeatProfiles } from "./meat-profiles";
 import { LegacyRecipeRedirect } from "./legacy-recipe-redirect";
 import { RawMeatGallery } from "./raw-meat-gallery";
 import { SalmonProfile } from "./salmon-profile";
@@ -62,17 +63,8 @@ export function MeatAndFishGuide({ language }: { language: GuideLanguage }) {
       <section className="py-14 sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:px-8 xl:grid-cols-3">
           {content.cards.map((card) => (
-            <article key={card.title} id={card.illustration === "poultry" ? (language === "cs" ? "drubez" : "poultry") : undefined} className="scroll-mt-24 min-w-0 overflow-hidden border border-sand bg-cream">
-              <div className="border-b border-sand bg-white px-3 py-3">
-                <Image
-                  src={`/animals-${card.illustration}.webp`}
-                  alt={card.alt}
-                  width={960}
-                  height={350}
-                  sizes="(min-width: 1280px) 390px, (min-width: 768px) 46vw, 92vw"
-                  className="block h-auto w-full"
-                />
-              </div>
+            <article key={card.title} id={card.illustration === "poultry" ? (language === "cs" ? "drubez" : "poultry") : card.illustration === "pork" ? (language === "cs" ? "veprove" : "pork") : undefined} className="scroll-mt-24 min-w-0 overflow-hidden border border-sand bg-cream">
+              <CutMap animal={card.illustration} alt={card.alt} language={language} />
               <div className="p-5 sm:p-6">
                 <h2 className="font-display text-2xl font-semibold text-ink">{card.title}</h2>
                 {card.illustration === "poultry" ? <PoultryLinks language={language} /> : <p className="mt-1 text-sm font-semibold text-olive">{card.subtitle}</p>}
@@ -82,6 +74,7 @@ export function MeatAndFishGuide({ language }: { language: GuideLanguage }) {
                   <p className="flex gap-2 text-muted"><Utensils className="mt-0.5 shrink-0 text-olive" aria-hidden size={16} /><span><strong className="font-semibold text-ink">{language === "en" ? "Works well for:" : "Hodí se na:"}</strong> {card.use}</span></p>
                   <p className="flex gap-2 text-muted"><CircleAlert className="mt-0.5 shrink-0 text-terracotta" aria-hidden size={16} /><span><strong className="font-semibold text-ink">{language === "en" ? "Keep in mind:" : "Pozor na:"}</strong> {card.caution}</span></p>
                 </div>
+                <MeatProfileLinks animal={card.illustration} language={language} />
                 {"speciesAnchor" in card && <a className="mt-4 inline-block font-semibold text-forest underline underline-offset-4" href={`#${card.speciesAnchor}`}>{language === "cs" ? "Losos atlantský" : "Atlantic salmon"}</a>}
               </div>
             </article>
@@ -89,6 +82,7 @@ export function MeatAndFishGuide({ language }: { language: GuideLanguage }) {
         </div>
       </section>
       <PoultryGuide language={language} />
+      <MeatProfiles language={language} />
       <SalmonProfile language={language} />
       <LegacyRecipeRedirect language={language} />
       <section className="border-t border-sand bg-mist py-12"><div className="mx-auto flex max-w-7xl flex-col gap-5 px-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8"><div><p className="text-sm font-semibold text-terracotta">{content.noteTitle}</p><p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{content.note}</p></div><Link href={homeHref} className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-forest transition hover:text-terracotta">{content.related}<ArrowLeft className="rotate-180" aria-hidden size={16} /></Link></div></section>

@@ -31,8 +31,13 @@ export function PoultryGuide({ language }: Props) {
           <div className="mt-5 grid items-start gap-6 md:grid-cols-2">
             <Image src={`/poultry-${bird.key}-raw.webp`} alt={t.label + ": " + t.cut} width={540} height={410} sizes="(min-width: 768px) 36vw, 92vw" className="h-auto w-full max-w-md" />
             <div>
+              <h3 className="font-display text-xl font-semibold">{cs ? "Druh a původ" : "Species and origin"}</h3>
+              <p className="mb-3 text-muted">{t.label} · {t.cut}. {cs ? "Zemi chovu a porážky ověř na obalu konkrétního masa." : "Check the pack for where this bird was raised and slaughtered."}</p>
+              <h3 className="font-display text-xl font-semibold">{cs ? "Při nákupu" : "When buying"}</h3>
               <p className="mb-4 leading-6 text-muted">{t.intro}</p>
               <NutrientValues id={bird.key} language={language} />
+              <h3 className="mt-4 font-display text-xl font-semibold">{cs ? "Příprava" : "Preparation"}</h3>
+              <p className="my-2 text-muted">{cs ? "Ověř alespoň 74 °C uprostřed nejsilnější části, mimo kost." : "Check for at least 74°C (165°F) in the thickest part, away from bone."} <a className="text-xs underline" href="https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures">FoodSafety.gov</a></p>
               <a href={(cs ? "/stravovani#" : "/en/stravovani#") + recipeId} className={linkClass}>{cs ? "Recept: " : "Recipe: "}{t.title}</a>
             </div>
           </div>

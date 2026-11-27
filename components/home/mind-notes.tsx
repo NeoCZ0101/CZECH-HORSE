@@ -1,18 +1,18 @@
-import { Headphones, Podcast, BookOpen, PencilLine, ChevronDown } from "lucide-react";
+import { Headphones, Podcast, BookOpen, Gamepad2, ChevronDown } from "lucide-react";
 
-const icons = [Headphones, Podcast, BookOpen, PencilLine];
+const icons = [Headphones, Podcast, BookOpen, Gamepad2];
 const notes = {
   cs: [
     ["Hudba", "Kterou skladbu si pustíš znovu?", "Vyber si jednu a poslechni si ji až do konce. Co tě na ní dneska bavilo?"],
     ["Podcasty", "Co ti po poslechu zůstalo v hlavě?", "Vybav si poslední rozhovor, který tě zaujal. Jakou myšlenku z něj bys chtěl probrat s někým dalším?"],
     ["Čtení", "Věta, ke které se chceš vrátit.", "Otevři rozečtenou knížku. Když tě některá věta zastaví, nech si u ní záložku."],
-    ["Tvoření", "Někdy se usměju už u toho, jak tenhle web vzniká.", "Co by tě dnes bavilo vytvořit jen tak, i kdyby to nikdo další neviděl?"],
+    ["Hry", "Ke které hře se rád vracíš?", "Je to příběh, radost z objevování, nebo večer s kamarády? Co tě na poslední hře bavilo nejvíc?"],
   ],
   en: [
     ["Music", "Which song would you play again?", "Pick one and listen to it all the way through. What did you enjoy about it today?"],
     ["Podcasts", "What stayed with you after listening?", "Think of the last conversation you enjoyed listening to. Which idea would you like to talk through with someone else?"],
     ["Reading", "A line worth coming back to.", "Open the book you’re reading. When a sentence makes you pause, leave a bookmark there."],
-    ["Creating", "Sometimes just making this site makes me smile.", "What would you enjoy making today, even if nobody else ever saw it?"],
+    ["Games", "Which game do you keep coming back to?", "Is it the story, the joy of exploring, or an evening with friends? What did you enjoy most about the last game you played?"],
   ],
 };
 

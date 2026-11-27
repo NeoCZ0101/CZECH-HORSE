@@ -32,6 +32,7 @@ export function Footer() {
         <div>
           <p className="font-display text-xl font-semibold text-cream">{platformName}</p>
           <p className="mt-4 max-w-md text-sm leading-6 text-cream/65">{description}</p>
+          <p className="mt-2 text-xs font-semibold text-sand">{isEnglish ? "#DISCIPLINE" : "#DISCIPLÍNA"}</p>
           <Image unoptimized src="/david-signature.svg" alt="David" width={108} height={44} className="mt-2" />
         </div>
 
